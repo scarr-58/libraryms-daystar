@@ -284,10 +284,10 @@ const DB = {
     {id:5,memberId:'M005',name:'Fatuma Hassan',email:'fatuma.hassan@strathmore.edu',phone:'0756789012',course:'BSc IT',year:2,status:'active',loanLimit:3,fines:0,joined:'2023-09-01'},
   ],
   loans: [
-    {id:1,bookId:2,memberId:'M001',bookTitle:'The Pragmatic Programmer',memberName:'Brian Otieno',issued:'2024-01-10',due:'2024-01-24',returned:null,fine:0},
+    {id:1,bookId:2,memberId:'M001',bookTitle:'The Pragmatic Programmer',memberName:'Oscar Tanui',issued:'2024-01-10',due:'2024-01-24',returned:null,fine:0},
     {id:2,bookId:6,memberId:'M002',bookTitle:'JavaScript: The Good Parts',memberName:'Amina Khalid',issued:'2024-01-05',due:'2024-01-19',returned:null,fine:150},
     {id:3,bookId:9,memberId:'M003',bookTitle:'Database System Concepts',memberName:'Helen Ajevi',issued:'2024-01-15',due:'2024-01-29',returned:null,fine:0},
-    {id:4,bookId:1,memberId:'M001',bookTitle:'Clean Code',memberName:'Brian Otieno',issued:'2023-12-01',due:'2023-12-15',returned:'2023-12-14',fine:0},
+    {id:4,bookId:1,memberId:'M001',bookTitle:'Clean Code',memberName:'Oscar Tanui',issued:'2023-12-01',due:'2023-12-15',returned:'2023-12-14',fine:0},
     {id:5,bookId:3,memberId:'M005',bookTitle:'Introduction to Algorithms',memberName:'Fatuma Hassan',issued:'2023-11-20',due:'2023-12-04',returned:'2023-12-10',fine:60},
   ],
   fines: [
@@ -298,10 +298,13 @@ const DB = {
   nextId:{book:11,member:6,loan:6,fine:4,user:5}
 };
 
+const STORAGE_KEY = 'StrathmoreLibraryMS_DB_v1';
+localStorage.removeItem('LibraryMS_DB');
+
 // Load saved DB from localStorage if present
-if (localStorage.getItem('LibraryMS_DB')) {
+if (localStorage.getItem(STORAGE_KEY)) {
   try {
-    const saved = JSON.parse(localStorage.getItem('LibraryMS_DB'));
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
     // Merge into DB
     for (const key in saved) {
       if (typeof saved[key] === 'object' && saved[key] !== null) {
@@ -321,7 +324,7 @@ if (localStorage.getItem('LibraryMS_DB')) {
 
 function saveLocalState() {
   try {
-    localStorage.setItem('LibraryMS_DB', JSON.stringify(DB));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
   } catch (e) {
     console.error("Failed to save state to localStorage:", e);
     if (e.name === 'QuotaExceededError' || e.code === 22) {
@@ -469,7 +472,7 @@ function renderDashboard(){
   const overdueLoans=activeLoans().filter(l=>l.due<today());
   const totalFines=DB.fines.filter(f=>!f.paid).reduce((s,f)=>s+f.amount,0);
   const activity=[
-    {icon:'📚',cls:'act-borrow',text:'<strong>Brian Otieno</strong> borrowed The Pragmatic Programmer',time:'2 days ago'},
+    {icon:'📚',cls:'act-borrow',text:'<strong>Oscar Tanui</strong> borrowed The Pragmatic Programmer',time:'2 days ago'},
     {icon:'↩️',cls:'act-return',text:'<strong>Fatuma Hassan</strong> returned Introduction to Algorithms',time:'5 days ago'},
     {icon:'💰',cls:'act-fine',text:'Fine of KES 150 raised for <strong>Amina Khalid</strong>',time:'6 days ago'},
     {icon:'👤',cls:'act-reg',text:'New member <strong>Kevin Njoroge</strong> registered',time:'3 months ago'},

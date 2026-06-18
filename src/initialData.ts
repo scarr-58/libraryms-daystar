@@ -8,8 +8,8 @@ import { Member, Book, Loan, Reservation, Notification } from './types';
 export const initialMembers: Member[] = [
   {
     id: "M001",
-    name: "Dr. Alice Kamau",
-    email: "alice@daystar.ac.ke",
+    name: "Dr. Grace Mwangi",
+    email: "grace.mwangi@strathmore.edu",
     passwordHash: "password123",
     role: "librarian",
     status: "active",
@@ -18,8 +18,8 @@ export const initialMembers: Member[] = [
   },
   {
     id: "M002",
-    name: "Brian Onyango",
-    email: "brian@daystar.ac.ke",
+    name: "Oscar Tanui",
+    email: "oscar.tanui@strathmore.edu",
     passwordHash: "password123",
     role: "member",
     status: "active",
@@ -28,8 +28,8 @@ export const initialMembers: Member[] = [
   },
   {
     id: "M003",
-    name: "Catherine Ndwiga",
-    email: "catherine@daystar.ac.ke",
+    name: "Amina Khalid",
+    email: "amina.khalid@strathmore.edu",
     passwordHash: "password123",
     role: "member",
     status: "active",
@@ -39,7 +39,7 @@ export const initialMembers: Member[] = [
   {
     id: "M004",
     name: "David Kiprop",
-    email: "david@daystar.ac.ke",
+    email: "david.kiprop@strathmore.edu",
     passwordHash: "password123",
     role: "member",
     status: "suspended",
@@ -107,7 +107,7 @@ export const initialLoans: Loan[] = [
     bookId: "B001",
     bookTitle: "Introduction to Computer Science",
     memberId: "M002",
-    memberName: "Brian Onyango",
+    memberName: "Oscar Tanui",
     borrowDate: "2026-06-01",
     dueDate: "2026-06-15",
     returnDate: null,
@@ -119,7 +119,7 @@ export const initialLoans: Loan[] = [
     bookId: "B005",
     bookTitle: "Database Management Systems",
     memberId: "M002",
-    memberName: "Brian Onyango",
+    memberName: "Oscar Tanui",
     borrowDate: "2026-06-10",
     dueDate: "2026-06-24",
     returnDate: null,
@@ -131,7 +131,7 @@ export const initialLoans: Loan[] = [
     bookId: "B002",
     bookTitle: "Strategic Management & Planning",
     memberId: "M003",
-    memberName: "Catherine Ndwiga",
+    memberName: "Amina Khalid",
     borrowDate: "2026-05-15",
     dueDate: "2026-05-29",
     returnDate: "2026-06-05", // Returned late
@@ -158,7 +158,7 @@ export const initialReservations: Reservation[] = [
     bookId: "B001",
     bookTitle: "Introduction to Computer Science",
     memberId: "M003",
-    memberName: "Catherine Ndwiga",
+    memberName: "Amina Khalid",
     reserveDate: "2026-06-16",
     status: "pending"
   }
@@ -169,7 +169,7 @@ export const initialNotifications: Notification[] = [
     id: "N001",
     memberId: "all",
     title: "Library Semester Hours",
-    message: "Daystar Library will remain open from 8:00 AM to 10:00 PM on weekdays and 9:00 AM to 5:00 PM on Saturdays.",
+    message: "Strathmore University Library will remain open from 8:00 AM to 10:00 PM on weekdays and 9:00 AM to 5:00 PM on Saturdays.",
     date: "2026-06-12",
     read: false
   },

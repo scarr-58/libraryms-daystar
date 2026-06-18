@@ -39,11 +39,11 @@ export default function App() {
 
   useEffect(() => {
     // Read from localStorage with fallback
-    const storedMembers = getStoredData<Member[]>('daystar_members', initialMembers);
-    const storedBooks = getStoredData<Book[]>('daystar_books', initialBooks);
-    const storedLoans = getStoredData<Loan[]>('daystar_loans', initialLoans);
-    const storedReservations = getStoredData<Reservation[]>('daystar_reservations', initialReservations);
-    const storedNotifications = getStoredData<Notification[]>('daystar_notifications', initialNotifications);
+    const storedMembers = getStoredData<Member[]>('strathmore_members', initialMembers);
+    const storedBooks = getStoredData<Book[]>('strathmore_books', initialBooks);
+    const storedLoans = getStoredData<Loan[]>('strathmore_loans', initialLoans);
+    const storedReservations = getStoredData<Reservation[]>('strathmore_reservations', initialReservations);
+    const storedNotifications = getStoredData<Notification[]>('strathmore_notifications', initialNotifications);
 
     // Dynamic dynamic fine sync calculator on system load
     const updatedLoans = storedLoans.map((l) => ({
@@ -58,7 +58,7 @@ export default function App() {
     setNotifications(storedNotifications);
 
     // Read active session if present
-    const activeSession = localStorage.getItem('daystar_active_session');
+    const activeSession = localStorage.getItem('strathmore_active_session');
     if (activeSession) {
       try {
         const parsedSession = JSON.parse(activeSession) as Member;
@@ -67,10 +67,10 @@ export default function App() {
         if (freshUser && freshUser.status !== 'suspended') {
           setCurrentUser(freshUser);
         } else {
-          localStorage.removeItem('daystar_active_session');
+          localStorage.removeItem('strathmore_active_session');
         }
       } catch (e) {
-        localStorage.removeItem('daystar_active_session');
+        localStorage.removeItem('strathmore_active_session');
       }
     }
 
@@ -85,21 +85,21 @@ export default function App() {
     updatedReservations: Reservation[],
     updatedNotifications: Notification[]
   ) => {
-    setStoredData('daystar_members', updatedMembers);
-    setStoredData('daystar_books', updatedBooks);
-    setStoredData('daystar_loans', updatedLoans);
-    setStoredData('daystar_reservations', updatedReservations);
-    setStoredData('daystar_notifications', updatedNotifications);
+    setStoredData('strathmore_members', updatedMembers);
+    setStoredData('strathmore_books', updatedBooks);
+    setStoredData('strathmore_loans', updatedLoans);
+    setStoredData('strathmore_reservations', updatedReservations);
+    setStoredData('strathmore_notifications', updatedNotifications);
   };
 
   const handleLoginSuccess = (user: Member) => {
     setCurrentUser(user);
-    localStorage.setItem('daystar_active_session', JSON.stringify(user));
+    localStorage.setItem('strathmore_active_session', JSON.stringify(user));
   };
 
   const handleLogout = () => {
     setCurrentUser(null);
-    localStorage.removeItem('daystar_active_session');
+    localStorage.removeItem('strathmore_active_session');
   };
 
   const handleRegisterMember = (newMember: Member) => {
@@ -124,7 +124,7 @@ export default function App() {
     if (currentUser && currentUser.id === memberId) {
       const updatedUser = { ...currentUser, profilePicture: base64Image };
       setCurrentUser(updatedUser);
-      localStorage.setItem('daystar_active_session', JSON.stringify(updatedUser));
+      localStorage.setItem('strathmore_active_session', JSON.stringify(updatedUser));
     }
   };
 

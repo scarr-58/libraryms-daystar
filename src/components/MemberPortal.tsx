@@ -283,7 +283,7 @@ export default function MemberPortal({
                 <BookOpen className="w-5 h-5" />
               </div>
               <div>
-                <span className="font-sans font-bold text-slate-900 text-lg tracking-tight">Daystar Library</span>
+                <span className="font-sans font-bold text-slate-900 text-lg tracking-tight">Strathmore Library</span>
                 <span className="text-[10px] text-slate-400 block -mt-1 font-mono font-medium">STUDENT PORTAL</span>
               </div>
             </div>
@@ -742,7 +742,7 @@ export default function MemberPortal({
               {/* Profile Card & Photo Uploader */}
               <div className="lg:col-span-4 bg-white rounded-2xl border border-slate-100 p-6 shadow-xs flex flex-col items-center text-center">
                 <span className="text-[10px] font-mono text-indigo-600 font-bold uppercase tracking-wider bg-indigo-50 px-3 py-1 rounded-full mb-4">
-                  Daystar University ID Card
+                  Strathmore University ID Card
                 </span>
 
                 {/* Main Interactive Avatar Upload Group */}

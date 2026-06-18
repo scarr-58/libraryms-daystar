@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>LibraryMS — Ajevi Precious Hellen</title>
+<title>LibraryMS - Strathmore University</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -197,7 +197,7 @@ select.filter:focus{border-color:var(--navy)}
   <div class="login-header">
     <div class="login-logo">L</div>
     <h1>LibraryMS</h1>
-    <p>Daystar University Library Management System</p>
+    <p>Strathmore University Library Management System</p>
   </div>
   <div class="login-card">
     <h2>Welcome back</h2>
@@ -205,7 +205,7 @@ select.filter:focus{border-color:var(--navy)}
     <div id="login-error"></div>
     <div class="form-group">
       <label>Email Address</label>
-      <input type="email" id="login-email" placeholder="grace@lib.daystar.ac.ke" autocomplete="email"/>
+      <input type="email" id="login-email" placeholder="grace.mwangi@strathmore.edu" autocomplete="email"/>
     </div>
     <div class="form-group">
       <label>Password</label>
@@ -230,7 +230,7 @@ select.filter:focus{border-color:var(--navy)}
       <div class="nav-logo">L</div>
       <div>
         <span class="nav-title">LibraryMS</span>
-        <span class="nav-subtitle">Daystar University</span>
+        <span class="nav-subtitle">Strathmore University</span>
       </div>
     </a>
     <div class="nav-links" id="nav-links"></div>
@@ -259,10 +259,10 @@ select.filter:focus{border-color:var(--navy)}
 // ════════════════════════════════════════════════
 const DB = {
   users: [
-    {id:1,name:'Grace Mwangi',email:'grace@lib.daystar.ac.ke',pass:'pass123',role:'librarian'},
-    {id:2,name:'Brian Otieno',email:'b.otieno@student.daystar.ac.ke',pass:'pass123',role:'member',memberId:'M001'},
-    {id:3,name:'Amina Khalid',email:'amina.k@student.daystar.ac.ke',pass:'pass123',role:'member',memberId:'M002'},
-    {id:4,name:'Ajevi Hellen',email:'ajevi@student.daystar.ac.ke',pass:'pass123',role:'member',memberId:'M003'},
+    {id:1,name:'Grace Mwangi',email:'grace.mwangi@strathmore.edu',pass:'pass123',role:'librarian'},
+    {id:2,name:'Oscar Tanui',email:'oscar.tanui@strathmore.edu',pass:'pass123',role:'member',memberId:'M001'},
+    {id:3,name:'Amina Khalid',email:'amina.khalid@strathmore.edu',pass:'pass123',role:'member',memberId:'M002'},
+    {id:4,name:'Helen Ajevi',email:'helen.ajevi@strathmore.edu',pass:'pass123',role:'member',memberId:'M003'},
   ],
   books: [
     {id:1,isbn:'978-0-13-468599-1',title:'Clean Code',author:'Robert C. Martin',category:'Programming',shelf:'A1-01',copies:3,available:2,year:2008},
@@ -277,16 +277,16 @@ const DB = {
     {id:10,isbn:'978-0-13-187708-0',title:'Artificial Intelligence',author:'Russell & Norvig',category:'AI/ML',shelf:'D1-01',copies:2,available:2,year:2020},
   ],
   members: [
-    {id:1,memberId:'M001',name:'Brian Otieno',email:'b.otieno@student.daystar.ac.ke',phone:'0712345678',course:'BSc Computer Science',year:3,status:'active',loanLimit:3,fines:0,joined:'2023-09-01'},
-    {id:2,memberId:'M002',name:'Amina Khalid',email:'amina.k@student.daystar.ac.ke',phone:'0723456789',course:'BSc Information Technology',year:2,status:'active',loanLimit:3,fines:150,joined:'2023-09-01'},
-    {id:3,memberId:'M003',name:'Ajevi Hellen',email:'ajevi@student.daystar.ac.ke',phone:'0734567890',course:'BSc Software Engineering',year:4,status:'active',loanLimit:3,fines:0,joined:'2022-09-01'},
-    {id:4,memberId:'M004',name:'Kevin Njoroge',email:'k.njoroge@student.daystar.ac.ke',phone:'0745678901',course:'BSc Computer Science',year:1,status:'suspended',loanLimit:3,fines:500,joined:'2024-09-01'},
-    {id:5,memberId:'M005',name:'Fatuma Hassan',email:'f.hassan@student.daystar.ac.ke',phone:'0756789012',course:'BSc IT',year:2,status:'active',loanLimit:3,fines:0,joined:'2023-09-01'},
+    {id:1,memberId:'M001',name:'Oscar Tanui',email:'oscar.tanui@strathmore.edu',phone:'0712345678',course:'BSc Computer Science',year:3,status:'active',loanLimit:3,fines:0,joined:'2023-09-01'},
+    {id:2,memberId:'M002',name:'Amina Khalid',email:'amina.khalid@strathmore.edu',phone:'0723456789',course:'BSc Information Technology',year:2,status:'active',loanLimit:3,fines:150,joined:'2023-09-01'},
+    {id:3,memberId:'M003',name:'Helen Ajevi',email:'helen.ajevi@strathmore.edu',phone:'0734567890',course:'BSc Software Engineering',year:4,status:'active',loanLimit:3,fines:0,joined:'2022-09-01'},
+    {id:4,memberId:'M004',name:'Kevin Njoroge',email:'kevin.njoroge@strathmore.edu',phone:'0745678901',course:'BSc Computer Science',year:1,status:'suspended',loanLimit:3,fines:500,joined:'2024-09-01'},
+    {id:5,memberId:'M005',name:'Fatuma Hassan',email:'fatuma.hassan@strathmore.edu',phone:'0756789012',course:'BSc IT',year:2,status:'active',loanLimit:3,fines:0,joined:'2023-09-01'},
   ],
   loans: [
     {id:1,bookId:2,memberId:'M001',bookTitle:'The Pragmatic Programmer',memberName:'Brian Otieno',issued:'2024-01-10',due:'2024-01-24',returned:null,fine:0},
     {id:2,bookId:6,memberId:'M002',bookTitle:'JavaScript: The Good Parts',memberName:'Amina Khalid',issued:'2024-01-05',due:'2024-01-19',returned:null,fine:150},
-    {id:3,bookId:9,memberId:'M003',bookTitle:'Database System Concepts',memberName:'Ajevi Hellen',issued:'2024-01-15',due:'2024-01-29',returned:null,fine:0},
+    {id:3,bookId:9,memberId:'M003',bookTitle:'Database System Concepts',memberName:'Helen Ajevi',issued:'2024-01-15',due:'2024-01-29',returned:null,fine:0},
     {id:4,bookId:1,memberId:'M001',bookTitle:'Clean Code',memberName:'Brian Otieno',issued:'2023-12-01',due:'2023-12-15',returned:'2023-12-14',fine:0},
     {id:5,bookId:3,memberId:'M005',bookTitle:'Introduction to Algorithms',memberName:'Fatuma Hassan',issued:'2023-11-20',due:'2023-12-04',returned:'2023-12-10',fine:60},
   ],
@@ -411,9 +411,9 @@ function updateLoginPlaceholder() {
   const role = document.getElementById('login-role').value;
   const emailInput = document.getElementById('login-email');
   if (role === 'librarian') {
-    emailInput.placeholder = 'grace@lib.daystar.ac.ke';
+    emailInput.placeholder = 'grace.mwangi@strathmore.edu';
   } else {
-    emailInput.placeholder = 'ajevi@student.daystar.ac.ke';
+    emailInput.placeholder = 'oscar.tanui@strathmore.edu';
   }
 }
 
@@ -696,7 +696,7 @@ function openAddMember(){
     <div class="modal-body">
       <div class="form-row">
         <div class="form-group"><label>Full Name *</label><input id="mb-name" type="text" placeholder="Full name"/></div>
-        <div class="form-group"><label>Email *</label><input id="mb-email" type="email" placeholder="name@student.daystar.ac.ke"/></div>
+        <div class="form-group"><label>Email *</label><input id="mb-email" type="email" placeholder="firstname.lastname@strathmore.edu"/></div>
       </div>
       <div class="form-row">
         <div class="form-group"><label>Phone</label><input id="mb-phone" type="text" placeholder="07xxxxxxxx"/></div>

@@ -260,7 +260,7 @@ export default function LoginPortal({ members, onLoginSuccess, onRegisterMember 
             <BookOpen className="w-6 h-6 text-indigo-300" />
           </div>
           <div>
-            <h1 className="font-sans font-bold text-lg tracking-wider text-indigo-100 uppercase">Daystar</h1>
+            <h1 className="font-sans font-bold text-lg tracking-wider text-indigo-100 uppercase">Strathmore</h1>
             <p className="text-xs text-indigo-300 font-mono tracking-widest">Library System</p>
           </div>
         </div>
@@ -295,7 +295,7 @@ export default function LoginPortal({ members, onLoginSuccess, onRegisterMember 
 
         {/* Footer info */}
         <div className="text-xs text-indigo-400 font-mono z-10 flex flex-col gap-1">
-          <p>© 2026 Daystar University Libraries</p>
+          <p>© 2026 Strathmore University Libraries</p>
           <p>Nairobi & Athi River Campuses</p>
         </div>
       </div>
@@ -353,7 +353,7 @@ export default function LoginPortal({ members, onLoginSuccess, onRegisterMember 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-hidden focus:border-indigo-500 text-sm transition-colors"
-                    placeholder="name@daystar.ac.ke"
+                    placeholder="name@strathmore.edu"
                   />
                 </div>
 
@@ -488,7 +488,7 @@ export default function LoginPortal({ members, onLoginSuccess, onRegisterMember 
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-hidden focus:border-indigo-500 text-sm transition-colors"
-                    placeholder="yourname@daystar.ac.ke"
+                    placeholder="yourname@strathmore.edu"
                   />
                 </div>
 

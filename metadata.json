@@ -1,5 +1,5 @@
 {
-  "name": "Daystar Library Management System",
+  "name": "Strathmore Library Management System",
   "description": "Full-featured Library Platform featuring catalog search, books check-out, overdue fee calculations at KES 10/day, fine ledger settlement, and interactive user profile picture uploads.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

@@ -268,7 +268,7 @@ export default function LibrarianPortal({
                 <BookOpen className="w-5 h-5" />
               </div>
               <div>
-                <span className="font-sans font-extrabold text-white text-md tracking-wider">Daystar Admin Portal</span>
+                <span className="font-sans font-extrabold text-white text-md tracking-wider">Strathmore Admin Portal</span>
                 <span className="text-[10px] text-indigo-300 block -mt-1 font-mono font-bold">LIBRARIAN CONTROL SYSTEMS</span>
               </div>
             </div>
@@ -570,7 +570,7 @@ export default function LibrarianPortal({
                 <div>
                   <h3 className="text-md font-bold text-slate-900">Student & Librarian Information Directory</h3>
                   <p className="text-xs text-slate-500 leading-normal">
-                    Check account statuses and upload/configure verified headshot identification photographs for Daystar members.
+                    Check account statuses and upload/configure verified headshot identification photographs for Strathmore members.
                   </p>
                 </div>
                 {/* Search */}
@@ -869,7 +869,7 @@ export default function LibrarianPortal({
                     required
                     value={notifTitle}
                     onChange={(e) => setNotifTitle(e.target.value)}
-                    placeholder="e.g. Daystar Semester Hours Update"
+                    placeholder="e.g. Strathmore Semester Hours Update"
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-hidden"
                   />
                 </div>

@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LibraryMS — Ajevi Precious Hellen</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0F2C59;
+  --parchment:#F8F1E5;
+  --crimson:#D04848;
+  --charcoal:#1E2022;
+  --navy-light:#1a3a6e;
+  --navy-dark:#0a1e3d;
+  --parchment-dark:#ede4d0;
+  --crimson-dark:#b03838;
+  --border:#d9cdb8;
+  --muted:#6b7280;
+  --success:#2d6a4f;
+  --warning:#b45309;
+  --white:#fff;
+}
+body{font-family:'Inter',sans-serif;background:var(--parchment);color:var(--charcoal);min-height:100vh}
+h1,h2,h3,h4{font-family:'Playfair Display',serif}
+
+/* ── NAV ── */
+nav{background:var(--navy);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(15,44,89,.25)}
+.nav-brand{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.nav-logo{width:38px;height:38px;background:var(--crimson);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:1.2rem;color:#fff}
+.nav-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#fff;letter-spacing:.01em}
+.nav-subtitle{font-size:.7rem;color:rgba(255,255,255,.55);font-weight:400;display:block;margin-top:-2px}
+.nav-links{display:flex;align-items:center;gap:.25rem}
+.nav-link{color:rgba(255,255,255,.75);text-decoration:none;font-size:.85rem;font-weight:500;padding:.5rem .9rem;border-radius:6px;cursor:pointer;transition:all .15s;border:none;background:none;white-space:nowrap}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.1)}
+.nav-link.active{color:#fff;background:rgba(208,72,72,.25);border:1px solid rgba(208,72,72,.4)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-user{display:flex;align-items:center;gap:.6rem;cursor:pointer}
+.nav-avatar{width:42px;height:42px;border-radius:50%;background:var(--crimson);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;color:#fff;background-size:cover;background-position:center;position:relative;overflow:hidden}
+.nav-username{font-size:.85rem;font-weight:500;color:rgba(255,255,255,.85)}
+.nav-user-badge,.nav-role-badge{font-size:.65rem;background:rgba(208,72,72,.3);color:#f9a8a8;padding:.15rem .5rem;border-radius:20px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.btn-logout{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.75);padding:.4rem .8rem;border-radius:6px;font-size:.8rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.btn-logout:hover{background:var(--crimson);border-color:var(--crimson);color:#fff}
+
+/* ── LOGIN ── */
+#login-screen{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem}
+.login-header{text-align:center;margin-bottom:2.5rem}
+.login-logo{width:64px;height:64px;background:var(--crimson);border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:2rem;color:#fff;margin:0 auto 1rem}
+.login-header h1{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;font-weight:700}
+.login-header p{color:rgba(255,255,255,.55);font-size:.9rem;margin-top:.3rem}
+.login-card{background:#fff;border-radius:16px;padding:2.5rem;width:100%;max-width:420px;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.login-card h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:.3rem}
+.login-card p{font-size:.85rem;color:var(--muted);margin-bottom:1.75rem}
+.form-group{margin-bottom:1.2rem}
+.form-group label{display:block;font-size:.8rem;font-weight:600;color:var(--charcoal);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:.9rem;color:var(--charcoal);background:var(--parchment);transition:border-color .15s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--navy);background:#fff}
+.btn-primary{width:100%;padding:.8rem;background:var(--navy);color:#fff;border:none;border-radius:8px;font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;cursor:pointer;transition:background .15s;letter-spacing:.02em}
+.btn-primary:hover{background:var(--navy-dark)}
+.login-note{text-align:center;margin-top:1.25rem;font-size:.8rem;color:var(--muted)}
+.login-note strong{color:var(--crimson)}
+#login-error{color:var(--crimson);font-size:.82rem;margin-bottom:1rem;background:#fef2f2;padding:.6rem .9rem;border-radius:6px;border-left:3px solid var(--crimson);display:none}
+
+/* ── APP SHELL ── */
+#app{display:none}
+.page-header{background:var(--navy);padding:2rem 2rem 2.5rem;margin-bottom:-1.5rem}
+.page-header h1{font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700;color:#fff}
+.page-header p{font-size:.85rem;color:rgba(255,255,255,.6);margin-top:.25rem}
+main{padding:2rem;max-width:1280px;margin:0 auto}
+
+/* ── CARDS ── */
+.card{background:#fff;border-radius:12px;padding:1.5rem;box-shadow:0 1px 4px rgba(0,0,0,.06);border:1px solid var(--border)}
+.card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--parchment-dark)}
+
+/* ── STAT CARDS ── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:#fff;border-radius:12px;padding:1.25rem 1.5rem;box-shadow:0 1px 4px rgba(0,0,0,.06);border:1px solid var(--border);border-left:4px solid var(--navy)}
+.stat-card.red{border-left-color:var(--crimson)}
+.stat-card.green{border-left-color:#2d6a4f}
+.stat-card.orange{border-left-color:#b45309}
+.stat-label{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.4rem}
+.stat-value{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--navy)}
+.stat-card.red .stat-value{color:var(--crimson)}
+.stat-card.green .stat-value{color:#2d6a4f}
+.stat-card.orange .stat-value{color:#b45309}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1.1rem;border-radius:7px;font-size:.83rem;font-weight:600;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all .15s;text-decoration:none}
+.btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--navy-dark)}
+.btn-crimson{background:var(--crimson);color:#fff}.btn-crimson:hover{background:var(--crimson-dark)}
+.btn-outline{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}.btn-outline:hover{background:var(--navy);color:#fff}
+.btn-outline-red{background:#fff;color:var(--crimson);border:1.5px solid var(--crimson)}.btn-outline-red:hover{background:var(--crimson);color:#fff}
+.btn-sm{padding:.35rem .7rem;font-size:.75rem}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}.btn-ghost:hover{background:var(--parchment)}
+.btn-success{background:#2d6a4f;color:#fff}.btn-success:hover{background:#1e4d38}
+
+/* ── TABLE ── */
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+thead{background:var(--navy)}
+thead th{padding:.8rem 1rem;text-align:left;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.85);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--parchment-dark);transition:background .1s}
+tbody tr:hover{background:var(--parchment)}
+tbody tr:last-child{border-bottom:none}
+td{padding:.75rem 1rem;color:var(--charcoal);vertical-align:middle}
+.badge{display:inline-block;padding:.2rem .6rem;border-radius:20px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.badge-green{background:#d1fae5;color:#065f46}
+.badge-red{background:#fee2e2;color:#991b1b}
+.badge-orange{background:#fef3c7;color:#92400e}
+.badge-blue{background:#dbeafe;color:#1e40af}
+.badge-gray{background:#f3f4f6;color:#374151}
+.badge-navy{background:#dbeafe;color:var(--navy)}
+
+/* ── TOOLBAR ── */
+.toolbar{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.search-box{flex:1;min-width:200px;position:relative}
+.search-box input{width:100%;padding:.6rem 1rem .6rem 2.5rem;border:1.5px solid var(--border);border-radius:8px;font-size:.85rem;background:var(--parchment);font-family:'Inter',sans-serif;outline:none;transition:border-color .15s}
+.search-box input:focus{border-color:var(--navy);background:#fff}
+.search-box::before{content:'🔍';position:absolute;left:.75rem;top:50%;transform:translateY(-50%);font-size:.8rem;pointer-events:none}
+select.filter{padding:.6rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.83rem;background:var(--parchment);font-family:'Inter',sans-serif;cursor:pointer;color:var(--charcoal);outline:none}
+select.filter:focus{border-color:var(--navy)}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(15,44,89,.5);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(2px)}
+.modal{background:#fff;border-radius:14px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal-header{padding:1.5rem 1.5rem 1rem;border-bottom:1px solid var(--parchment-dark);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:1}
+.modal-header h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy)}
+.modal-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted);line-height:1;padding:.2rem .4rem;border-radius:4px;transition:color .15s}
+.modal-close:hover{color:var(--crimson)}
+.modal-body{padding:1.5rem}
+.modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--parchment-dark);display:flex;justify-content:flex-end;gap:.75rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-hint{font-size:.75rem;color:var(--muted);margin-top:.3rem}
+
+/* ── ALERT ── */
+.alert{padding:.85rem 1rem;border-radius:8px;font-size:.85rem;margin-bottom:1rem;display:flex;align-items:flex-start;gap:.6rem}
+.alert-red{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.alert-green{background:#d1fae5;color:#065f46;border:1px solid #6ee7b7}
+.alert-orange{background:#fef3c7;color:#92400e;border:1px solid #fcd34d}
+.alert-blue{background:#dbeafe;color:#1e40af;border:1px solid #93c5fd}
+
+/* ── DASHBOARD ── */
+.dash-grid{display:grid;grid-template-columns:2fr 1fr;gap:1.5rem}
+.activity-list{list-style:none}
+.activity-item{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem 0;border-bottom:1px solid var(--parchment-dark)}
+.activity-item:last-child{border-bottom:none}
+.activity-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.act-borrow{background:#dbeafe}.act-return{background:#d1fae5}.act-fine{background:#fee2e2}.act-reg{background:#fef3c7}
+.activity-text{font-size:.82rem;color:var(--charcoal);line-height:1.4}
+.activity-time{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+.overdue-item{display:flex;align-items:center;justify-content:space-between;padding:.65rem 0;border-bottom:1px solid var(--parchment-dark);font-size:.82rem}
+.overdue-item:last-child{border-bottom:none}
+.overdue-days{font-weight:700;color:var(--crimson)}
+
+/* ── REPORTS ── */
+.report-tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;border-bottom:2px solid var(--border);padding-bottom:0}
+.report-tab{padding:.6rem 1.1rem;font-size:.85rem;font-weight:600;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-2px;font-family:'Inter',sans-serif;transition:all .15s}
+.report-tab.active{color:var(--navy);border-bottom-color:var(--navy)}
+.report-tab:hover:not(.active){color:var(--charcoal)}
+
+/* ── MEMBER PORTAL ── */
+.member-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);border-radius:12px;padding:2rem;color:#fff;margin-bottom:1.5rem;display:flex;align-items:center;gap:1.5rem}
+.member-hero-avatar{width:110px;height:110px;border-radius:50%;background:var(--crimson);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:#fff;flex-shrink:0;background-size:cover;background-position:center}
+.member-hero h2{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:.25rem}
+.member-hero p{font-size:.85rem;opacity:.7}
+.member-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+
+/* ── EMPTY STATE ── */
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--muted)}
+.empty-state .icon{font-size:2.5rem;margin-bottom:.75rem}
+.empty-state h3{font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:.4rem}
+.empty-state p{font-size:.85rem}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:2rem;right:2rem;z-index:999;display:flex;flex-direction:column;gap:.5rem}
+.toast-item{background:var(--navy);color:#fff;padding:.85rem 1.25rem;border-radius:10px;font-size:.85rem;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.2);animation:slideIn .2s ease;border-left:4px solid var(--crimson);max-width:320px}
+.toast-item.success{border-left-color:#2d6a4f}
+.toast-item.error{border-left-color:var(--crimson)}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .dash-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .member-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  main{padding:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ════ LOGIN ════ -->
+<div id="login-screen">
+  <div class="login-header">
+    <div class="login-logo">L</div>
+    <h1>LibraryMS</h1>
+    <p>Daystar University Library Management System</p>
+  </div>
+  <div class="login-card">
+    <h2>Welcome back</h2>
+    <p>Sign in to access your library account</p>
+    <div id="login-error"></div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="login-email" placeholder="grace@lib.daystar.ac.ke" autocomplete="email"/>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password"/>
+    </div>
+    <div class="form-group">
+      <label>Role</label>
+      <select id="login-role" onchange="updateLoginPlaceholder()">
+        <option value="librarian">Librarian</option>
+        <option value="member">Member</option>
+      </select>
+    </div>
+    <button class="btn-primary" onclick="doLogin()">Sign In</button>
+    <p class="login-note">Don't have an account? <strong>Contact the librarian</strong> to get registered.</p>
+  </div>
+</div>
+
+<!-- ════ APP ════ -->
+<div id="app">
+  <nav>
+    <a class="nav-brand" href="#">
+      <div class="nav-logo">L</div>
+      <div>
+        <span class="nav-title">LibraryMS</span>
+        <span class="nav-subtitle">Daystar University</span>
+      </div>
+    </a>
+    <div class="nav-links" id="nav-links"></div>
+    <div class="nav-right">
+      <div class="nav-user" onclick="openMyProfileModal()" title="Edit Profile Settings" style="cursor:pointer">
+        <div class="nav-avatar" id="nav-avatar"></div>
+        <div>
+          <div class="nav-username" id="nav-username"></div>
+          <div class="nav-role-badge" id="nav-role-badge"></div>
+        </div>
+      </div>
+      <button class="btn-logout" onclick="doLogout()">Sign Out</button>
+    </div>
+  </nav>
+
+  <div id="page-header-area"></div>
+  <main id="main-content"></main>
+</div>
+
+<div id="modal-root"></div>
+<div id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════════
+// DATA STORE
+// ════════════════════════════════════════════════
+const DB = {
+  users: [
+    {id:1,name:'Grace Mwangi',email:'grace@lib.daystar.ac.ke',pass:'pass123',role:'librarian'},
+    {id:2,name:'Brian Otieno',email:'b.otieno@student.daystar.ac.ke',pass:'pass123',role:'member',memberId:'M001'},
+    {id:3,name:'Amina Khalid',email:'amina.k@student.daystar.ac.ke',pass:'pass123',role:'member',memberId:'M002'},
+    {id:4,name:'Ajevi Hellen',email:'ajevi@student.daystar.ac.ke',pass:'pass123',role:'member',memberId:'M003'},
+  ],
+  books: [
+    {id:1,isbn:'978-0-13-468599-1',title:'Clean Code',author:'Robert C. Martin',category:'Programming',shelf:'A1-01',copies:3,available:2,year:2008},
+    {id:2,isbn:'978-0-201-63361-0',title:'The Pragmatic Programmer',author:'David Thomas',category:'Programming',shelf:'A1-02',copies:2,available:1,year:1999},
+    {id:3,isbn:'978-0-13-235088-4',title:'Introduction to Algorithms',author:'Cormen et al.',category:'Computer Science',shelf:'B2-01',copies:4,available:3,year:2009},
+    {id:4,isbn:'978-0-19-860426-1',title:'Oxford English Dictionary',author:'Oxford Press',category:'Reference',shelf:'C1-01',copies:2,available:2,year:2010},
+    {id:5,isbn:'978-0-13-110362-7',title:'The C Programming Language',author:'Kernighan & Ritchie',category:'Programming',shelf:'A1-03',copies:3,available:3,year:1988},
+    {id:6,isbn:'978-0-596-51774-8',title:'JavaScript: The Good Parts',author:'Douglas Crockford',category:'Programming',shelf:'A2-01',copies:2,available:0,year:2008},
+    {id:7,isbn:'978-0-32-182577-3',title:'The Mythical Man-Month',author:'Fred Brooks',category:'Software Engineering',shelf:'A3-01',copies:1,available:1,year:1975},
+    {id:8,isbn:'978-1-49-197321-1',title:'Python Crash Course',author:'Eric Matthes',category:'Programming',shelf:'A1-04',copies:5,available:4,year:2019},
+    {id:9,isbn:'978-0-07-338066-7',title:'Database System Concepts',author:'Silberschatz et al.',category:'Databases',shelf:'B1-01',copies:3,available:2,year:2010},
+    {id:10,isbn:'978-0-13-187708-0',title:'Artificial Intelligence',author:'Russell & Norvig',category:'AI/ML',shelf:'D1-01',copies:2,available:2,year:2020},
+  ],
+  members: [
+    {id:1,memberId:'M001',name:'Brian Otieno',email:'b.otieno@student.daystar.ac.ke',phone:'0712345678',course:'BSc Computer Science',year:3,status:'active',loanLimit:3,fines:0,joined:'2023-09-01'},
+    {id:2,memberId:'M002',name:'Amina Khalid',email:'amina.k@student.daystar.ac.ke',phone:'0723456789',course:'BSc Information Technology',year:2,status:'active',loanLimit:3,fines:150,joined:'2023-09-01'},
+    {id:3,memberId:'M003',name:'Ajevi Hellen',email:'ajevi@student.daystar.ac.ke',phone:'0734567890',course:'BSc Software Engineering',year:4,status:'active',loanLimit:3,fines:0,joined:'2022-09-01'},
+    {id:4,memberId:'M004',name:'Kevin Njoroge',email:'k.njoroge@student.daystar.ac.ke',phone:'0745678901',course:'BSc Computer Science',year:1,status:'suspended',loanLimit:3,fines:500,joined:'2024-09-01'},
+    {id:5,memberId:'M005',name:'Fatuma Hassan',email:'f.hassan@student.daystar.ac.ke',phone:'0756789012',course:'BSc IT',year:2,status:'active',loanLimit:3,fines:0,joined:'2023-09-01'},
+  ],
+  loans: [
+    {id:1,bookId:2,memberId:'M001',bookTitle:'The Pragmatic Programmer',memberName:'Brian Otieno',issued:'2024-01-10',due:'2024-01-24',returned:null,fine:0},
+    {id:2,bookId:6,memberId:'M002',bookTitle:'JavaScript: The Good Parts',memberName:'Amina Khalid',issued:'2024-01-05',due:'2024-01-19',returned:null,fine:150},
+    {id:3,bookId:9,memberId:'M003',bookTitle:'Database System Concepts',memberName:'Ajevi Hellen',issued:'2024-01-15',due:'2024-01-29',returned:null,fine:0},
+    {id:4,bookId:1,memberId:'M001',bookTitle:'Clean Code',memberName:'Brian Otieno',issued:'2023-12-01',due:'2023-12-15',returned:'2023-12-14',fine:0},
+    {id:5,bookId:3,memberId:'M005',bookTitle:'Introduction to Algorithms',memberName:'Fatuma Hassan',issued:'2023-11-20',due:'2023-12-04',returned:'2023-12-10',fine:60},
+  ],
+  fines: [
+    {id:1,memberId:'M002',memberName:'Amina Khalid',loanId:2,bookTitle:'JavaScript: The Good Parts',amount:150,date:'2024-01-19',paid:false},
+    {id:2,memberId:'M005',memberName:'Fatuma Hassan',loanId:5,bookTitle:'Introduction to Algorithms',amount:60,date:'2023-12-10',paid:true},
+    {id:3,memberId:'M004',memberName:'Kevin Njoroge',loanId:null,bookTitle:'Python Crash Course',amount:500,date:'2023-10-30',paid:false},
+  ],
+  nextId:{book:11,member:6,loan:6,fine:4,user:5}
+};
+
+// Load saved DB from localStorage if present
+if (localStorage.getItem('LibraryMS_DB')) {
+  try {
+    const saved = JSON.parse(localStorage.getItem('LibraryMS_DB'));
+    // Merge into DB
+    for (const key in saved) {
+      if (typeof saved[key] === 'object' && saved[key] !== null) {
+        if (Array.isArray(saved[key])) {
+          DB[key] = saved[key];
+        } else {
+          Object.assign(DB[key], saved[key]);
+        }
+      } else {
+        DB[key] = saved[key];
+      }
+    }
+  } catch (e) {
+    console.error("Error restoring DB", e);
+  }
+}
+
+function saveLocalState() {
+  try {
+    localStorage.setItem('LibraryMS_DB', JSON.stringify(DB));
+  } catch (e) {
+    console.error("Failed to save state to localStorage:", e);
+    if (e.name === 'QuotaExceededError' || e.code === 22) {
+      toast("Storage space full. Data is active in your current session, but older images could not be persisted.", "warn");
+    }
+  }
+}
+
+function updateNavAvatar(){
+  const navAv=document.getElementById('nav-avatar');
+  if(!navAv) return;
+  let avatar = null;
+  if (currentUser) {
+    if (currentUser.role === 'member') {
+      const m = DB.members.find(x => x.memberId === currentUser.memberId || x.email === currentUser.email);
+      if (m && m.avatar) avatar = m.avatar;
+    } else {
+      const u = DB.users.find(x => String(x.id) === String(currentUser.id) || x.email === currentUser.email);
+      if (u && u.avatar) avatar = u.avatar;
+    }
+    
+    if (!avatar && currentUser.avatar) {
+      avatar = currentUser.avatar;
+    }
+    
+    if (avatar) {
+      navAv.innerHTML = `<img src="${avatar}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;" referrerPolicy="no-referrer" />`;
+      navAv.style.backgroundImage = 'none';
+    } else {
+      navAv.style.backgroundImage = 'none';
+      navAv.innerHTML = initials(currentUser.name);
+    }
+  }
+}
+
+let currentUser = null;
+let currentPage = 'dashboard';
+let activeLoans = () => DB.loans.filter(l=>!l.returned);
+
+// ════ HELPERS ════
+function toast(msg,type='success'){
+  const t=document.getElementById('toast');
+  const d=document.createElement('div');
+  d.className=`toast-item ${type}`;
+  d.textContent=msg;
+  t.appendChild(d);
+  setTimeout(()=>d.remove(),3500);
+}
+function fmt(d){if(!d)return '—';const x=new Date(d);return x.toLocaleDateString('en-KE',{day:'numeric',month:'short',year:'numeric'});}
+function today(){return new Date().toISOString().split('T')[0];}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x.toISOString().split('T')[0];}
+function daysDiff(d){return Math.floor((new Date()-new Date(d))/(1000*86400));}
+function initials(n){return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);}
+function escHtml(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function openModal(html){document.getElementById('modal-root').innerHTML=`<div class="modal-overlay" onclick="closeModalOutside(event)">${html}</div>`;}
+function closeModal(){document.getElementById('modal-root').innerHTML='';}
+function closeModalOutside(e){if(e.target.className==='modal-overlay')closeModal();}
+
+// ════ AUTH ════
+function doLogin(){
+  const email=document.getElementById('login-email').value.trim();
+  const pass=document.getElementById('login-pass').value;
+  const role=document.getElementById('login-role').value;
+  const err=document.getElementById('login-error');
+  const user=DB.users.find(u=>u.email===email&&u.pass===pass&&u.role===role);
+  if(!user){err.textContent='Invalid credentials. Please check your email, password and role.';err.style.display='block';return;}
+  err.style.display='none';
+  currentUser = JSON.parse(JSON.stringify(user));
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('nav-username').textContent=currentUser.name;
+  document.getElementById('nav-role-badge').textContent=currentUser.role;
+  updateNavAvatar();
+  buildNav();
+  navigate('dashboard');
+}
+function doLogout(){
+  currentUser=null;
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-email').value='';
+  document.getElementById('login-pass').value='';
+  updateLoginPlaceholder();
+}
+
+function updateLoginPlaceholder() {
+  const role = document.getElementById('login-role').value;
+  const emailInput = document.getElementById('login-email');
+  if (role === 'librarian') {
+    emailInput.placeholder = 'grace@lib.daystar.ac.ke';
+  } else {
+    emailInput.placeholder = 'ajevi@student.daystar.ac.ke';
+  }
+}
+
+// ════ NAV ════
+const librarianPages=[
+  {id:'dashboard',label:'Dashboard'},
+  {id:'books',label:'Books'},
+  {id:'members',label:'Members'},
+  {id:'borrow',label:'Borrow'},
+  {id:'returns',label:'Returns'},
+  {id:'fines',label:'Fines'},
+  {id:'reports',label:'Reports'},
+];
+const memberPages=[
+  {id:'myportal',label:'My Portal'},
+  {id:'catalog',label:'Book Catalogue'},
+];
+function buildNav(){
+  const pages=currentUser.role==='librarian'?librarianPages:memberPages;
+  document.getElementById('nav-links').innerHTML=pages.map(p=>`<button class="nav-link" id="nav-${p.id}" onclick="navigate('${p.id}')">${p.label}</button>`).join('');
+}
+function setActiveNav(id){
+  document.querySelectorAll('.nav-link').forEach(el=>el.classList.remove('active'));
+  const el=document.getElementById('nav-'+id);
+  if(el)el.classList.add('active');
+}
+function navigate(page){
+  currentPage=page;
+  setActiveNav(page);
+  const pages={
+    dashboard:renderDashboard,
+    books:renderBooks,
+    members:renderMembers,
+    borrow:renderBorrow,
+    returns:renderReturns,
+    fines:renderFines,
+    reports:renderReports,
+    myportal:renderMyPortal,
+    catalog:renderCatalog,
+  };
+  if(pages[page])pages[page]();
+}
+function setHeader(title,sub){
+  document.getElementById('page-header-area').innerHTML=`<div class="page-header"><h1>${title}</h1>${sub?`<p>${sub}</p>`:''}</div>`;
+}
+
+// ════ DASHBOARD ════
+function renderDashboard(){
+  setHeader('Dashboard','Good morning — here is your library at a glance.');
+  const totalBooks=DB.books.reduce((s,b)=>s+b.copies,0);
+  const available=DB.books.reduce((s,b)=>s+b.available,0);
+  const activeM=DB.members.filter(m=>m.status==='active').length;
+  const overdueLoans=activeLoans().filter(l=>l.due<today());
+  const totalFines=DB.fines.filter(f=>!f.paid).reduce((s,f)=>s+f.amount,0);
+  const activity=[
+    {icon:'📚',cls:'act-borrow',text:'<strong>Brian Otieno</strong> borrowed The Pragmatic Programmer',time:'2 days ago'},
+    {icon:'↩️',cls:'act-return',text:'<strong>Fatuma Hassan</strong> returned Introduction to Algorithms',time:'5 days ago'},
+    {icon:'💰',cls:'act-fine',text:'Fine of KES 150 raised for <strong>Amina Khalid</strong>',time:'6 days ago'},
+    {icon:'👤',cls:'act-reg',text:'New member <strong>Kevin Njoroge</strong> registered',time:'3 months ago'},
+  ];
+  document.getElementById('main-content').innerHTML=`
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-label">Total Books</div><div class="stat-value">${totalBooks}</div></div>
+      <div class="stat-card green"><div class="stat-label">Available</div><div class="stat-value">${available}</div></div>
+      <div class="stat-card"><div class="stat-label">Active Loans</div><div class="stat-value">${activeLoans().length}</div></div>
+      <div class="stat-card red"><div class="stat-label">Overdue</div><div class="stat-value">${overdueLoans.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Members</div><div class="stat-value">${activeM}</div></div>
+      <div class="stat-card orange"><div class="stat-label">Fines Owed (KES)</div><div class="stat-value">${totalFines.toLocaleString()}</div></div>
+    </div>
+    <div class="dash-grid">
+      <div class="card">
+        <div class="card-title">Recent Activity</div>
+        <ul class="activity-list">
+          ${activity.map(a=>`<li class="activity-item"><div class="activity-icon ${a.cls}">${a.icon}</div><div><div class="activity-text">${a.text}</div><div class="activity-time">${a.time}</div></div></li>`).join('')}
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">⚠️ Overdue Loans</div>
+        ${overdueLoans.length===0?`<div class="empty-state" style="padding:1.5rem 0"><div class="icon">✅</div><p>No overdue loans right now.</p></div>`:''}
+        ${overdueLoans.map(l=>`
+          <div class="overdue-item">
+            <div>
+              <div style="font-weight:600;font-size:.83rem">${escHtml(l.bookTitle)}</div>
+              <div style="font-size:.75rem;color:var(--muted)">${escHtml(l.memberName)}</div>
+            </div>
+            <div class="overdue-days">${daysDiff(l.due)}d late</div>
+          </div>
+        `).join('')}
+        <div style="margin-top:1rem">
+          <div class="card-title">Books by Category</div>
+          ${[...new Set(DB.books.map(b=>b.category))].map(cat=>{
+            const total=DB.books.filter(b=>b.category===cat).reduce((s,b)=>s+b.copies,0);
+            const pct=Math.round(total/totalBooks*100);
+            return `<div style="margin-bottom:.65rem">
+              <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.25rem"><span>${cat}</span><span style="font-weight:600">${total}</span></div>
+              <div style="height:6px;background:var(--parchment-dark);border-radius:3px"><div style="height:6px;background:var(--navy);border-radius:3px;width:${pct}%"></div></div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
+// ════ BOOKS ════
+let bookSearch='', bookCat='all', bookAvail='all';
+function renderBooks(){
+  setHeader('Book Catalogue','Browse, add, and manage the library\'s collection.');
+  let filtered=DB.books.filter(b=>{
+    const s=bookSearch.toLowerCase();
+    const matchS=!s||b.title.toLowerCase().includes(s)||b.author.toLowerCase().includes(s)||b.isbn.includes(s);
+    const matchC=bookCat==='all'||b.category===bookCat;
+    const matchA=bookAvail==='all'||(bookAvail==='available'&&b.available>0)||(bookAvail==='unavailable'&&b.available===0);
+    return matchS&&matchC&&matchA;
+  });
+  const cats=[...new Set(DB.books.map(b=>b.category))];
+  document.getElementById('main-content').innerHTML=`
+    <div class="toolbar">
+      <div class="search-box"><input type="text" placeholder="Search by title, author, ISBN…" value="${escHtml(bookSearch)}" oninput="bookSearch=this.value;renderBooks()" /></div>
+      <select class="filter" onchange="bookCat=this.value;renderBooks()">
+        <option value="all">All Categories</option>
+        ${cats.map(c=>`<option value="${c}" ${bookCat===c?'selected':''}>${c}</option>`).join('')}
+      </select>
+      <select class="filter" onchange="bookAvail=this.value;renderBooks()">
+        <option value="all">Any Availability</option>
+        <option value="available" ${bookAvail==='available'?'selected':''}>Available</option>
+        <option value="unavailable" ${bookAvail==='unavailable'?'selected':''}>Checked Out</option>
+      </select>
+      <button class="btn btn-navy" onclick="openAddBook()">+ Add Book</button>
+      <button class="btn btn-ghost" onclick="exportCSV(DB.books.map(b=>({ISBN:b.isbn,Title:b.title,Author:b.author,Category:b.category,Shelf:b.shelf,Copies:b.copies,Available:b.available})),'books')">↓ Export</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ISBN</th><th>Title</th><th>Author</th><th>Category</th><th>Shelf</th><th>Copies</th><th>Available</th><th>Actions</th></tr></thead>
+        <tbody>
+          ${filtered.length===0?`<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">No books found.</td></tr>`:''}
+          ${filtered.map(b=>`<tr>
+            <td style="font-size:.75rem;color:var(--muted);font-family:monospace">${b.isbn}</td>
+            <td><strong>${escHtml(b.title)}</strong><div style="font-size:.73rem;color:var(--muted)">${b.year}</div></td>
+            <td>${escHtml(b.author)}</td>
+            <td><span class="badge badge-navy">${b.category}</span></td>
+            <td style="font-family:monospace;font-size:.82rem">${b.shelf}</td>
+            <td style="text-align:center">${b.copies}</td>
+            <td style="text-align:center"><span class="badge ${b.available>0?'badge-green':'badge-red'}">${b.available>0?b.available+' avail':'None'}</span></td>
+            <td><div style="display:flex;gap:.4rem">
+              <button class="btn btn-sm btn-outline" onclick="openEditBook(${b.id})">Edit</button>
+              <button class="btn btn-sm btn-outline-red" onclick="deleteBook(${b.id})">Delete</button>
+            </div></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.78rem;color:var(--muted);margin-top:.75rem">Showing ${filtered.length} of ${DB.books.length} books</p>`;
+}
+function openAddBook(){
+  openModal(`<div class="modal">
+    <div class="modal-header"><h3>Add New Book</h3><button class="modal-close" onclick="closeModal()">×</button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label>Title *</label><input id="bk-title" type="text" placeholder="Book title"/></div>
+        <div class="form-group"><label>Author *</label><input id="bk-author" type="text" placeholder="Author name"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>ISBN</label><input id="bk-isbn" type="text" placeholder="978-x-xx-xxxxxx-x"/></div>
+        <div class="form-group"><label>Publication Year</label><input id="bk-year" type="number" placeholder="2024"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Category</label><input id="bk-cat" type="text" placeholder="e.g. Programming"/></div>
+        <div class="form-group"><label>Shelf Location</label><input id="bk-shelf" type="text" placeholder="e.g. A1-05"/></div>
+      </div>
+      <div class="form-group"><label>Number of Copies</label><input id="bk-copies" type="number" value="1" min="1"/></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-navy" onclick="saveBook()">Add Book</button>
+    </div>
+  </div>`);
+}
+function saveBook(){
+  const title=document.getElementById('bk-title').value.trim();
+  const author=document.getElementById('bk-author').value.trim();
+  if(!title||!author){toast('Title and author are required.','error');return;}
+  const copies=parseInt(document.getElementById('bk-copies').value)||1;
+  DB.books.push({id:DB.nextId.book++,isbn:document.getElementById('bk-isbn').value.trim()||'N/A',title,author,category:document.getElementById('bk-cat').value.trim()||'General',shelf:document.getElementById('bk-shelf').value.trim()||'TBD',copies,available:copies,year:parseInt(document.getElementById('bk-year').value)||new Date().getFullYear()});
+  closeModal();saveLocalState();toast(`"${title}" added to catalogue.`);renderBooks();
+}
+function openEditBook(id){
+  const b=DB.books.find(x=>x.id===id);
+  if(!b)return;
+  openModal(`<div class="modal">
+    <div class="modal-header"><h3>Edit Book</h3><button class="modal-close" onclick="closeModal()">×</button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label>Title</label><input id="bk-title" type="text" value="${escHtml(b.title)}"/></div>
+        <div class="form-group"><label>Author</label><input id="bk-author" type="text" value="${escHtml(b.author)}"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>ISBN</label><input id="bk-isbn" type="text" value="${escHtml(b.isbn)}"/></div>
+        <div class="form-group"><label>Year</label><input id="bk-year" type="number" value="${b.year}"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Category</label><input id="bk-cat" type="text" value="${escHtml(b.category)}"/></div>
+        <div class="form-group"><label>Shelf</label><input id="bk-shelf" type="text" value="${escHtml(b.shelf)}"/></div>
+      </div>
+      <div class="form-group"><label>Total Copies</label><input id="bk-copies" type="number" value="${b.copies}" min="1"/></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-navy" onclick="updateBook(${id})">Save Changes</button>
+    </div>
+  </div>`);
+}
+function updateBook(id){
+  const b=DB.books.find(x=>x.id===id);
+  const borrowed=b.copies-b.available;
+  const newCopies=parseInt(document.getElementById('bk-copies').value)||1;
+  b.title=document.getElementById('bk-title').value.trim();
+  b.author=document.getElementById('bk-author').value.trim();
+  b.isbn=document.getElementById('bk-isbn').value.trim();
+  b.category=document.getElementById('bk-cat').value.trim();
+  b.shelf=document.getElementById('bk-shelf').value.trim();
+  b.year=parseInt(document.getElementById('bk-year').value)||b.year;
+  b.copies=newCopies;
+  b.available=Math.max(0,newCopies-borrowed);
+  closeModal();saveLocalState();toast('Book updated.');renderBooks();
+}
+function deleteBook(id){
+  if(!confirm('Delete this book from the catalogue?'))return;
+  DB.books=DB.books.filter(b=>b.id!==id);
+  saveLocalState();toast('Book removed.','error');renderBooks();
+}
+
+// ════ MEMBERS ════
+let memberSearch='', memberStatus='all';
+function renderMembers(){
+  setHeader('Members','Manage registered library members and their accounts.');
+  let filtered=DB.members.filter(m=>{
+    const s=memberSearch.toLowerCase();
+    const matchS=!s||m.name.toLowerCase().includes(s)||m.email.toLowerCase().includes(s)||m.memberId.toLowerCase().includes(s);
+    const matchSt=memberStatus==='all'||m.status===memberStatus;
+    return matchS&&matchSt;
+  });
+  document.getElementById('main-content').innerHTML=`
+    <div class="toolbar">
+      <div class="search-box"><input type="text" placeholder="Search by name, email, member ID…" value="${escHtml(memberSearch)}" oninput="memberSearch=this.value;renderMembers()"/></div>
+      <select class="filter" onchange="memberStatus=this.value;renderMembers()">
+        <option value="all">All Status</option>
+        <option value="active" ${memberStatus==='active'?'selected':''}>Active</option>
+        <option value="suspended" ${memberStatus==='suspended'?'selected':''}>Suspended</option>
+      </select>
+      <button class="btn btn-navy" onclick="openAddMember()">+ Register Member</button>
+      <button class="btn btn-ghost" onclick="exportCSV(DB.members.map(m=>({ID:m.memberId,Name:m.name,Email:m.email,Phone:m.phone,Course:m.course,Year:m.year,Status:m.status,Fines:m.fines})),'members')">↓ Export</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Member ID</th><th>Name</th><th>Email</th><th>Course</th><th>Year</th><th>Status</th><th>Fines (KES)</th><th>Actions</th></tr></thead>
+        <tbody>
+          ${filtered.length===0?`<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">No members found.</td></tr>`:''}
+          ${filtered.map(m=>`<tr>
+            <td style="font-family:monospace;font-size:.82rem;font-weight:600">${m.memberId}</td>
+            <td><strong>${escHtml(m.name)}</strong><div style="font-size:.73rem;color:var(--muted)">Joined ${fmt(m.joined)}</div></td>
+            <td style="font-size:.82rem">${escHtml(m.email)}</td>
+            <td style="font-size:.82rem">${escHtml(m.course)}</td>
+            <td style="text-align:center">${m.year}</td>
+            <td><span class="badge ${m.status==='active'?'badge-green':'badge-red'}">${m.status}</span></td>
+            <td style="text-align:center;font-weight:${m.fines>0?700:400};color:${m.fines>0?'var(--crimson)':'inherit'}">${m.fines>0?'KES '+m.fines.toLocaleString():'—'}</td>
+            <td><div style="display:flex;gap:.4rem;flex-wrap:wrap">
+              <button class="btn btn-sm btn-outline" onclick="openViewMember(${m.id})">View</button>
+              <button class="btn btn-sm btn-outline" onclick="openEditMember(${m.id})">Edit</button>
+              <button class="btn btn-sm ${m.status==='active'?'btn-outline-red':'btn-success'}" onclick="toggleMember(${m.id})">${m.status==='active'?'Suspend':'Activate'}</button>
+            </div></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.78rem;color:var(--muted);margin-top:.75rem">Showing ${filtered.length} of ${DB.members.length} members</p>`;
+}
+function openAddMember(){
+  openModal(`<div class="modal">
+    <div class="modal-header"><h3>Register New Member</h3><button class="modal-close" onclick="closeModal()">×</button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label>Full Name *</label><input id="mb-name" type="text" placeholder="Full name"/></div>
+        <div class="form-group"><label>Email *</label><input id="mb-email" type="email" placeholder="name@student.daystar.ac.ke"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Phone</label><input id="mb-phone" type="text" placeholder="07xxxxxxxx"/></div>
+        <div class="form-group"><label>Academic Year</label><select id="mb-year"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+      </div>
+      <div class="form-group"><label>Course / Programme</label><input id="mb-course" type="text" placeholder="e.g. BSc Computer Science"/></div>
+      <div class="form-group"><label>Loan Limit</label><select id="mb-limit"><option value="2">2 books</option><option value="3" selected>3 books</option><option value="5">5 books</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-navy" onclick="saveMember()">Register</button>
+    </div>
+  </div>`);
+}
+function saveMember(){
+  const name=document.getElementById('mb-name').value.trim();
+  const email=document.getElementById('mb-email').value.trim();
+  if(!name||!email){toast('Name and email are required.','error');return;}
+  const id=DB.nextId.member++;
+  const memberId='M'+String(id).padStart(3,'0');
+  DB.members.push({id,memberId,name,email,phone:document.getElementById('mb-phone').value.trim(),course:document.getElementById('mb-course').value.trim(),year:parseInt(document.getElementById('mb-year').value),status:'active',loanLimit:parseInt(document.getElementById('mb-limit').value),fines:0,joined:today()});
+  DB.users.push({id:DB.nextId.user++,name,email,pass:'pass123',role:'member',memberId});
+  closeModal();saveLocalState();toast(`${name} registered as ${memberId}.`);renderMembers();
+}
+function openViewMember(id){
+  const m=DB.members.find(x=>x.id===id);
+  const loans=DB.loans.filter(l=>l.memberId===m.memberId);
+  const active=loans.filter(l=>!l.returned);
+  openModal(`<div class="modal">
+    <div class="modal-header"><h3>Member Profile</h3><button class="modal-close" onclick="closeModal()">×</button></div>
+    <div class="modal-body">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;background:var(--parchment);padding:1rem;border-radius:10px">
+        <div style="width:96px;height:96px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:2rem;color:#fff;flex-shrink:0;position:relative;overflow:hidden;">
+          ${m.avatar ? `<img src="${m.avatar}" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;" referrerPolicy="no-referrer" />` : initials(m.name)}
+        </div>
+        <div><div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--navy)">${escHtml(m.name)}</div>
+        <div style="font-size:.82rem;color:var(--muted)">${m.memberId} · ${escHtml(m.course)}</div>
+        <span class="badge ${m.status==='active'?'badge-green':'badge-red'}" style="margin-top:.3rem">${m.status}</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;font-size:.83rem;margin-bottom:1.25rem">
+        <div><span style="color:var(--muted)">Email:</span> ${escHtml(m.email)}</div>
+        <div><span style="color:var(--muted)">Phone:</span> ${escHtml(m.phone)}</div>
+        <div><span style="color:var(--muted)">Year:</span> Year ${m.year}</div>
+        <div><span style="color:var(--muted)">Joined:</span> ${fmt(m.joined)}</div>
+        <div><span style="color:var(--muted)">Active Loans:</span> ${active.length} / ${m.loanLimit}</div>
+        <div><span style="color:var(--muted)">Outstanding Fines:</span> <strong style="color:${m.fines>0?'var(--crimson)':'inherit'}">${m.fines>0?'KES '+m.fines:'None'}</strong></div>
+      </div>
+      <div class="card-title">Loan History (${loans.length})</div>
+      ${loans.length===0?'<p style="font-size:.83rem;color:var(--muted)">No loans yet.</p>':''}
+      ${loans.map(l=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--parchment-dark);font-size:.82rem">
+        <div><div style="font-weight:600">${escHtml(l.bookTitle)}</div><div style="color:var(--muted)">Issued ${fmt(l.issued)} · Due ${fmt(l.due)}</div></div>
+        <span class="badge ${l.returned?'badge-green':'badge-orange'}">${l.returned?'Returned':'Active'}</span>
+      </div>`).join('')}
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Close</button></div>
+  </div>`);
+}
+function openEditMember(id){
+  const m=DB.members.find(x=>x.id===id);
+  uploadedModalAvatar = m.avatar || null;
+  openModal(`<div class="modal">
+    <div class="modal-header"><h3>Edit Member</h3><button class="modal-close" onclick="closeModal()">×</button></div>
+    <div class="modal-body">
+      <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:1.5rem;">
+        <div id="modal-avatar-preview" class="member-hero-avatar" style="width:130px;height:130px;font-size:2.8rem;cursor:pointer;position:relative;overflow:hidden;border:3px solid var(--navy);margin-bottom:0.5rem;display:flex;align-items:center;justify-content:center;border-radius:50%;color:#fff;font-weight:700;background:var(--crimson);" onclick="triggerAvatarUploadFromModal()">
+          ${m.avatar ? `<img id="modal-avatar-img" src="${m.avatar}" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;" referrerPolicy="no-referrer" />` : `<span id="modal-avatar-initials">${initials(m.name)}</span>`}
+          <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.6);color:#fff;font-size:11px;padding:6px 0;text-align:center;font-family:'Inter',sans-serif;font-weight:600;letter-spacing:0.05em;z-index:10;">UPLOAD</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Full Name</label><input id="mb-name" value="${escHtml(m.name)}"/></div>
+        <div class="form-group"><label>Email</label><input id="mb-email" value="${escHtml(m.email)}"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Phone</label><input id="mb-phone" value="${escHtml(m.phone)}"/></div>
+        <div class="form-group"><label>Year</label><select id="mb-year">${[1,2,3,4].map(y=>`<option ${m.year===y?'selected':''}>${y}</option>`).join('')}</select></div>
+      </div>
+      <div class="form-group"><label>Course</label><input id="mb-course" value="${escHtml(m.course)}"/></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-navy" onclick="updateMember(${id})">Save</button>
+    </div>
+  </div>`);
+}
+function updateMember(id){
+  const m=DB.members.find(x=>x.id===id);
+  m.name=document.getElementById('mb-name').value.trim();
+  m.email=document.getElementById('mb-email').value.trim();
+  m.phone=document.getElementById('mb-phone').value.trim();
+  m.course=document.getElementById('mb-course').value.trim();
+  m.year=parseInt(document.getElementById('mb-year').value);
+  if (uploadedModalAvatar) {
+    m.avatar = uploadedModalAvatar;
+  }
+  // Also update corresponding user object if any
+  const u = DB.users.find(x => x.memberId === m.memberId);
+  if (u) {
+    u.name = m.name;
+    if (uploadedModalAvatar) {
+      u.avatar = uploadedModalAvatar;
+    }
+  }
+  closeModal();saveLocalState();toast('Member updated.');renderMembers();
+}
+function toggleMember(id){
+  const m=DB.members.find(x=>x.id===id);
+  m.status=m.status==='active'?'suspended':'active';
+  saveLocalState();
+  toast(`${m.name} ${m.status==='active'?'activated':'suspended'}.`,m.status==='active'?'success':'error');
+  renderMembers();
+}
+
+// ════ BORROW ════
+function renderBorrow(){
+  setHeader('Issue Book','Check out a book to a registered member.');
+  document.getElementById('main-content').innerHTML=`
+    <div style="max-width:640px">
+      <div class="card" style="margin-bottom:1.5rem">
+        <div class="card-title">Issue a Book</div>
+        <div class="form-group">
+          <label>Member ID or Email *</label>
+          <input id="bw-member" type="text" placeholder="e.g. M001 or email@ac.ke"/>
+          <div class="form-hint">Enter the member's ID or email and press Enter</div>
+        </div>
+        <div id="bw-member-info"></div>
+        <div class="form-group">
+          <label>Select Book *</label>
+          <select id="bw-book">
+            <option value="">— Choose a book —</option>
+            ${DB.books.filter(b=>b.available>0).map(b=>`<option value="${b.id}">${escHtml(b.title)} — ${escHtml(b.author)} (${b.available} avail)</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Loan Period</label>
+          <select id="bw-days">
+            <option value="7">7 days</option>
+            <option value="14" selected>14 days</option>
+            <option value="21">21 days</option>
+            <option value="30">30 days</option>
+          </select>
+        </div>
+        <button class="btn btn-navy" onclick="issueLoan()">Issue Book</button>
+      </div>
+      <div class="card">
+        <div class="card-title">Currently Active Loans</div>
+        ${activeLoans().length===0?'<p style="color:var(--muted);font-size:.85rem">No active loans.</p>':''}
+        ${activeLoans().map(l=>{
+          const overdue=l.due<today();
+          const days=daysDiff(l.due);
+          return `<div style="display:flex;justify-content:space-between;align-items:center;padding:.65rem 0;border-bottom:1px solid var(--parchment-dark)">
+            <div>
+              <div style="font-weight:600;font-size:.85rem">${escHtml(l.bookTitle)}</div>
+              <div style="font-size:.75rem;color:var(--muted)">${escHtml(l.memberName)} · Due ${fmt(l.due)}</div>
+            </div>
+            <span class="badge ${overdue?'badge-red':'badge-green'}">${overdue?days+'d overdue':'Active'}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  document.getElementById('bw-member').addEventListener('keydown',e=>{if(e.key==='Enter')lookupMember();});
+}
+function lookupMember(){
+  const q=document.getElementById('bw-member').value.trim().toLowerCase();
+  const m=DB.members.find(x=>x.memberId.toLowerCase()===q||x.email.toLowerCase()===q);
+  const info=document.getElementById('bw-member-info');
+  if(!m){info.innerHTML=`<div class="alert alert-red">⚠️ Member not found. Check the ID or email.</div>`;return;}
+  if(m.status==='suspended'){info.innerHTML=`<div class="alert alert-red">⛔ This member's account is suspended. Cannot issue books.</div>`;return;}
+  const active=activeLoans().filter(l=>l.memberId===m.memberId);
+  const overdue=active.filter(l=>l.due<today());
+  let alerts='';
+  if(active.length>=m.loanLimit)alerts+=`<div class="alert alert-red">⚠️ Loan limit reached (${m.loanLimit} books). Return a book first.</div>`;
+  if(overdue.length>0)alerts+=`<div class="alert alert-orange">⚠️ Member has ${overdue.length} overdue loan(s). Proceed with caution.</div>`;
+  if(m.fines>0)alerts+=`<div class="alert alert-orange">⚠️ Outstanding fines of KES ${m.fines}.</div>`;
+  info.innerHTML=`<div class="alert alert-blue" style="flex-direction:column;align-items:flex-start">
+    <strong>${escHtml(m.name)}</strong>
+    <span>${m.memberId} · ${escHtml(m.course)}, Year ${m.year}</span>
+    <span>Active loans: ${active.length} / ${m.loanLimit}</span>
+  </div>${alerts}`;
+}
+function issueLoan(){
+  const q=document.getElementById('bw-member').value.trim().toLowerCase();
+  const m=DB.members.find(x=>x.memberId.toLowerCase()===q||x.email.toLowerCase()===q);
+  const bookId=parseInt(document.getElementById('bw-book').value);
+  if(!m){toast('Please enter a valid member ID or email.','error');return;}
+  if(!bookId){toast('Please select a book.','error');return;}
+  if(m.status==='suspended'){toast('Cannot issue to a suspended member.','error');return;}
+  const active=activeLoans().filter(l=>l.memberId===m.memberId);
+  if(active.length>=m.loanLimit){toast(`Loan limit reached for ${m.name}.`,'error');return;}
+  const book=DB.books.find(b=>b.id===bookId);
+  if(!book||book.available===0){toast('Book is not available.','error');return;}
+  const days=parseInt(document.getElementById('bw-days').value);
+  const issued=today();
+  const due=addDays(issued,days);
+  book.available--;
+  DB.loans.push({id:DB.nextId.loan++,bookId,memberId:m.memberId,bookTitle:book.title,memberName:m.name,issued,due,returned:null,fine:0});
+  saveLocalState();
+  toast(`"${book.title}" issued to ${m.name}. Due ${fmt(due)}.`);
+  renderBorrow();
+}
+
+// ════ RETURNS ════
+function renderReturns(){
+  setHeader('Process Returns','Accept returned books and calculate fines.');
+  document.getElementById('main-content').innerHTML=`
+    <div class="toolbar">
+      <div class="search-box"><input type="text" id="ret-search" placeholder="Search active loans…" oninput="filterReturns()"/></div>
+    </div>
+    <div id="returns-list">
+      ${renderReturnsList(activeLoans())}
+    </div>`;
+}
+function filterReturns(){
+  const q=document.getElementById('ret-search').value.toLowerCase();
+  const filtered=activeLoans().filter(l=>l.bookTitle.toLowerCase().includes(q)||l.memberName.toLowerCase().includes(q)||l.memberId.toLowerCase().includes(q));
+  document.getElementById('returns-list').innerHTML=renderReturnsList(filtered);
+}
+function renderReturnsList(loans){
+  if(loans.length===0)return`<div class="empty-state"><div class="icon">📚</div><h3>No Active Loans</h3><p>All books have been returned.</p></div>`;
+  return`<div class="table-wrap"><table>
+    <thead><tr><th>Member</th><th>Book</th><th>Issued</th><th>Due</th><th>Status</th><th>Fine (KES)</th><th>Action</th></tr></thead>
+    <tbody>${loans.map(l=>{
+      const overdue=l.due<today();
+      const days=overdue?daysDiff(l.due):0;
+      const fine=days*10;
+      return`<tr>
+        <td><strong>${escHtml(l.memberName)}</strong><div style="font-size:.73rem;color:var(--muted)">${l.memberId}</div></td>
+        <td>${escHtml(l.bookTitle)}</td>
+        <td>${fmt(l.issued)}</td>
+        <td style="color:${overdue?'var(--crimson)':'inherit'};font-weight:${overdue?700:400}">${fmt(l.due)}</td>
+        <td><span class="badge ${overdue?'badge-red':'badge-green'}">${overdue?days+'d late':'On Time'}</span></td>
+        <td style="font-weight:${fine>0?700:400};color:${fine>0?'var(--crimson)':'inherit'}">${fine>0?'KES '+fine:'—'}</td>
+        <td><button class="btn btn-sm btn-success" onclick="processReturn(${l.id})">Return</button></td>
+      </tr>`;
+    }).join('')}</tbody>
+  </table></div>`;
+}
+function processReturn(loanId){
+  const loan=DB.loans.find(l=>l.id===loanId);
+  if(!loan)return;
+  const book=DB.books.find(b=>b.id===loan.bookId);
+  const overdue=loan.due<today();
+  const days=overdue?daysDiff(loan.due):0;
+  const fine=days*10;
+  loan.returned=today();
+  loan.fine=fine;
+  if(book)book.available++;
+  if(fine>0){
+    const m=DB.members.find(x=>x.memberId===loan.memberId);
+    if(m)m.fines+=fine;
+    DB.fines.push({id:DB.nextId.fine++,memberId:loan.memberId,memberName:loan.memberName,loanId,bookTitle:loan.bookTitle,amount:fine,date:today(),paid:false});
+    saveLocalState();
+    toast(`"${loan.bookTitle}" returned. Fine of KES ${fine} raised.`,'error');
+  } else {
+    saveLocalState();
+    toast(`"${loan.bookTitle}" returned on time. No fine.`);
+  }
+  renderReturns();
+}
+
+// ════ FINES ════
+function renderFines(){
+  setHeader('Fines Ledger','Track and collect outstanding library fines.');
+  const unpaid=DB.fines.filter(f=>!f.paid);
+  const total=unpaid.reduce((s,f)=>s+f.amount,0);
+  const collected=DB.fines.filter(f=>f.paid).reduce((s,f)=>s+f.amount,0);
+  document.getElementById('main-content').innerHTML=`
+    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:1.5rem">
+      <div class="stat-card red"><div class="stat-label">Outstanding (KES)</div><div class="stat-value">${total.toLocaleString()}</div></div>
+      <div class="stat-card green"><div class="stat-label">Collected (KES)</div><div class="stat-value">${collected.toLocaleString()}</div></div>
+      <div class="stat-card"><div class="stat-label">Total Cases</div><div class="stat-value">${DB.fines.length}</div></div>
+    </div>
+    <div class="toolbar">
+      <button class="btn btn-ghost" onclick="exportCSV(DB.fines.map(f=>({Member:f.memberName,Book:f.bookTitle,Amount:f.amount,Date:f.date,Paid:f.paid?'Yes':'No'})),'fines')">↓ Export</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Member</th><th>Book</th><th>Amount (KES)</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          ${DB.fines.map(f=>`<tr>
+            <td><strong>${escHtml(f.memberName)}</strong></td>
+            <td>${escHtml(f.bookTitle)}</td>
+            <td style="font-weight:700;color:${f.paid?'var(--success)':'var(--crimson)'}">KES ${f.amount.toLocaleString()}</td>
+            <td>${fmt(f.date)}</td>
+            <td><span class="badge ${f.paid?'badge-green':'badge-red'}">${f.paid?'Paid':'Unpaid'}</span></td>
+            <td>${f.paid?'<span style="color:var(--muted);font-size:.8rem">—</span>':`<button class="btn btn-sm btn-success" onclick="markPaid(${f.id})">Mark Paid</button>`}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+}
+function markPaid(id){
+  const f=DB.fines.find(x=>x.id===id);
+  if(!f)return;
+  f.paid=true;
+  const m=DB.members.find(x=>x.memberId===f.memberId);
+  if(m)m.fines=Math.max(0,m.fines-f.amount);
+  saveLocalState();
+  toast(`Fine of KES ${f.amount} marked as paid.`);
+  renderFines();
+}
+
+// ════ REPORTS ════
+let reportTab='inventory';
+function renderReports(){
+  setHeader('Reports','Library analytics, loan history, and inventory summaries.');
+  document.getElementById('main-content').innerHTML=`
+    <div class="report-tabs">
+      <button class="report-tab ${reportTab==='inventory'?'active':''}" onclick="switchReport('inventory')">Inventory</button>
+      <button class="report-tab ${reportTab==='topbooks'?'active':''}" onclick="switchReport('topbooks')">Most Borrowed</button>
+      <button class="report-tab ${reportTab==='history'?'active':''}" onclick="switchReport('history')">Full Loan History</button>
+    </div>
+    <div id="report-content"></div>`;
+  renderReportContent();
+}
+function switchReport(tab){reportTab=tab;renderReports();}
+function renderReportContent(){
+  const el=document.getElementById('report-content');
+  if(reportTab==='inventory'){
+    const cats=[...new Set(DB.books.map(b=>b.category))];
+    el.innerHTML=`<div class="card">
+      <div class="card-title">Inventory by Category</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Category</th><th>Titles</th><th>Total Copies</th><th>Available</th><th>On Loan</th><th>Utilisation</th></tr></thead>
+        <tbody>${cats.map(cat=>{
+          const books=DB.books.filter(b=>b.category===cat);
+          const titles=books.length;
+          const copies=books.reduce((s,b)=>s+b.copies,0);
+          const avail=books.reduce((s,b)=>s+b.available,0);
+          const onLoan=copies-avail;
+          const util=copies>0?Math.round(onLoan/copies*100):0;
+          return`<tr>
+            <td><strong>${cat}</strong></td>
+            <td>${titles}</td>
+            <td>${copies}</td>
+            <td style="color:var(--success)">${avail}</td>
+            <td style="color:var(--crimson)">${onLoan}</td>
+            <td><div style="display:flex;align-items:center;gap:.5rem">
+              <div style="flex:1;height:6px;background:var(--parchment-dark);border-radius:3px"><div style="height:6px;background:var(--navy);border-radius:3px;width:${util}%"></div></div>
+              <span style="font-size:.75rem;font-weight:600;width:2.5rem">${util}%</span>
+            </div></td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table></div>
+    </div>`;
+  } else if(reportTab==='topbooks'){
+    const counts={};
+    DB.loans.forEach(l=>{counts[l.bookTitle]=(counts[l.bookTitle]||0)+1;});
+    const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+    el.innerHTML=`<div class="card">
+      <div class="card-title">Most Borrowed Books</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Rank</th><th>Title</th><th>Times Borrowed</th><th>Popularity</th></tr></thead>
+        <tbody>${sorted.map(([title,count],i)=>`<tr>
+          <td style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--navy)">${i+1}</td>
+          <td><strong>${escHtml(title)}</strong></td>
+          <td style="text-align:center;font-weight:700;font-size:1.1rem">${count}</td>
+          <td><div style="display:flex;align-items:center;gap:.5rem">
+            <div style="flex:1;height:6px;background:var(--parchment-dark);border-radius:3px"><div style="height:6px;background:var(--crimson);border-radius:3px;width:${Math.round(count/sorted[0][1]*100)}%"></div></div>
+          </div></td>
+        </tr>`).join('')}</tbody>
+      </table></div>
+    </div>`;
+  } else {
+    el.innerHTML=`<div class="card">
+      <div class="card-title">Complete Loan History (${DB.loans.length} records)</div>
+      <div class="toolbar" style="margin-bottom:1rem">
+        <button class="btn btn-ghost" onclick="exportCSV(DB.loans.map(l=>({Book:l.bookTitle,Member:l.memberName,MemberID:l.memberId,Issued:l.issued,Due:l.due,Returned:l.returned||'Active',Fine:l.fine})),'loan-history')">↓ Export CSV</button>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Book</th><th>Member</th><th>Issued</th><th>Due</th><th>Returned</th><th>Fine (KES)</th></tr></thead>
+        <tbody>${DB.loans.map(l=>`<tr>
+          <td><strong>${escHtml(l.bookTitle)}</strong></td>
+          <td>${escHtml(l.memberName)} <span style="color:var(--muted);font-size:.75rem">${l.memberId}</span></td>
+          <td>${fmt(l.issued)}</td>
+          <td>${fmt(l.due)}</td>
+          <td>${l.returned?fmt(l.returned):'<span class="badge badge-orange">Active</span>'}</td>
+          <td style="color:${l.fine>0?'var(--crimson)':'inherit'};font-weight:${l.fine>0?700:400}">${l.fine>0?'KES '+l.fine:'—'}</td>
+        </tr>`).join('')}</tbody>
+      </table></div>
+    </div>`;
+  }
+}
+
+// ════ MEMBER PORTAL ════
+function renderMyPortal(){
+  const m=DB.members.find(x=>x.memberId===currentUser.memberId);
+  if(!m){document.getElementById('main-content').innerHTML=`<div class="alert alert-red">Member record not found.</div>`;return;}
+  setHeader('My Library Portal','Your loans, fines, and account at a glance.');
+  const myLoans=DB.loans.filter(l=>l.memberId===m.memberId);
+  const active=myLoans.filter(l=>!l.returned);
+  const overdue=active.filter(l=>l.due<today());
+  document.getElementById('main-content').innerHTML=`
+    <div class="member-hero">
+      <div class="member-hero-avatar" id="portal-avatar" style="cursor:pointer;position:relative;overflow:hidden;" onclick="openMyProfileModal()">
+        ${m.avatar ? `<img src="${m.avatar}" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;" referrerPolicy="no-referrer" />` : initials(m.name)}
+        <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;padding:2px 0;text-align:center;font-family:'Inter',sans-serif;font-weight:600;z-index:5;">EDIT</div>
+      </div>
+      <div>
+        <h2>${escHtml(m.name)}</h2>
+        <p>${m.memberId} · ${escHtml(m.course)}, Year ${m.year}</p>
+        <p style="margin-top:.25rem;font-size:.8rem">Member since ${fmt(m.joined)}</p>
+      </div>
+    </div>
+    <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:1.5rem">
+      <div class="stat-card"><div class="stat-label">Active Loans</div><div class="stat-value">${active.length}</div></div>
+      <div class="stat-card red"><div class="stat-label">Overdue</div><div class="stat-value">${overdue.length}</div></div>
+      <div class="stat-card orange"><div class="stat-label">Fines (KES)</div><div class="stat-value">${m.fines.toLocaleString()}</div></div>
+      <div class="stat-card"><div class="stat-label">Total Borrowed</div><div class="stat-value">${myLoans.length}</div></div>
+    </div>
+    <div class="member-grid">
+      <div class="card">
+        <div class="card-title">Active Loans</div>
+        ${active.length===0?`<div class="empty-state" style="padding:1.5rem 0"><div class="icon">📚</div><p>No active loans.</p></div>`:''}
+        ${active.map(l=>{
+          const od=l.due<today();
+          return`<div style="padding:.65rem 0;border-bottom:1px solid var(--parchment-dark)">
+            <div style="font-weight:600;font-size:.85rem">${escHtml(l.bookTitle)}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.3rem">
+              <span style="font-size:.75rem;color:${od?'var(--crimson)':'var(--muted)'}">Due: ${fmt(l.due)}</span>
+              <span class="badge ${od?'badge-red':'badge-green'}">${od?daysDiff(l.due)+'d late':'Active'}</span>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="card">
+        <div class="card-title">Loan History</div>
+        ${myLoans.filter(l=>l.returned).length===0?`<div class="empty-state" style="padding:1.5rem 0"><div class="icon">🕐</div><p>No past loans.</p></div>`:''}
+        ${myLoans.filter(l=>l.returned).map(l=>`<div style="padding:.65rem 0;border-bottom:1px solid var(--parchment-dark)">
+          <div style="font-weight:600;font-size:.85rem">${escHtml(l.bookTitle)}</div>
+          <div style="display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);margin-top:.25rem">
+            <span>Returned ${fmt(l.returned)}</span>
+            ${l.fine>0?`<span style="color:var(--crimson);font-weight:600">Fine: KES ${l.fine}</span>`:'<span style="color:#2d6a4f">No fine</span>'}
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+// ════ CATALOGUE (MEMBER) ════
+let catSearch='',catCat='all';
+function renderCatalog(){
+  setHeader('Book Catalogue','Browse books available in the library.');
+  let filtered=DB.books.filter(b=>{
+    const s=catSearch.toLowerCase();
+    const matchS=!s||b.title.toLowerCase().includes(s)||b.author.toLowerCase().includes(s);
+    const matchC=catCat==='all'||b.category===catCat;
+    return matchS&&matchC;
+  });
+  const cats=[...new Set(DB.books.map(b=>b.category))];
+  document.getElementById('main-content').innerHTML=`
+    <div class="toolbar">
+      <div class="search-box"><input type="text" placeholder="Search by title or author…" value="${escHtml(catSearch)}" oninput="catSearch=this.value;renderCatalog()"/></div>
+      <select class="filter" onchange="catCat=this.value;renderCatalog()">
+        <option value="all">All Categories</option>
+        ${cats.map(c=>`<option value="${c}" ${catCat===c?'selected':''}>${c}</option>`).join('')}
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Title</th><th>Author</th><th>Category</th><th>Shelf</th><th>Availability</th></tr></thead>
+        <tbody>${filtered.map(b=>`<tr>
+          <td><strong>${escHtml(b.title)}</strong><div style="font-size:.73rem;color:var(--muted)">${b.isbn}</div></td>
+          <td>${escHtml(b.author)}</td>
+          <td><span class="badge badge-navy">${b.category}</span></td>
+          <td style="font-family:monospace;font-size:.82rem">${b.shelf}</td>
+          <td><span class="badge ${b.available>0?'badge-green':'badge-red'}">${b.available>0?b.available+' available':'Checked Out'}</span></td>
+        </tr>`).join('')}</tbody>
+      </table>
+    </div>`;
+}
+
+// ════ CSV EXPORT ════
+function exportCSV(data,name){
+  if (!data || data.length === 0) {
+    toast('No data to export.', 'error');
+    return;
+  }
+  const headers=Object.keys(data[0]);
+  const rows=[headers.join(','),...data.map(r=>headers.map(h=>`"${String(r[h]||'').replace(/"/g,'""')}"`).join(','))];
+  const blob=new Blob([rows.join('\n')],{type:'text/csv'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`${name}-${today()}.csv`;
+  a.click();
+  toast(`${name}.csv exported.`);
+}
+
+// ════ PROFILE PICTURE & MODAL SETTINGS ════
+let uploadedModalAvatar = null;
+
+function openMyProfileModal() {
+  if (!currentUser) return;
+  uploadedModalAvatar = null;
+  
+  let currentAvatar = '';
+  let currentPhone = '';
+  let currentCourse = '';
+  let currentYear = '';
+  
+  if (currentUser.role === 'member') {
+    const m = DB.members.find(x => x.memberId === currentUser.memberId);
+    if (m) {
+      currentAvatar = m.avatar || '';
+      currentPhone = m.phone || '';
+      currentCourse = m.course || '';
+      currentYear = parseInt(m.year) || 1;
+    }
+  } else {
+    const u = DB.users.find(x => x.id === currentUser.id);
+    if (u) {
+      currentAvatar = u.avatar || '';
+    }
+  }
+  
+  openModal(`<div class="modal">
+    <div class="modal-header">
+      <h3>My Profile Settings</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:1.5rem;text-align:center;">
+        <div id="modal-avatar-preview" class="member-hero-avatar" style="width:160px;height:160px;font-size:3.5rem;cursor:pointer;position:relative;overflow:hidden;border:4px solid var(--navy);margin-bottom:0.75rem;display:flex;align-items:center;justify-content:center;border-radius:50%;color:#fff;font-weight:700;background:var(--crimson);" onclick="triggerAvatarUploadFromModal()">
+          ${currentAvatar ? `<img id="modal-avatar-img" src="${currentAvatar}" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;" referrerPolicy="no-referrer" />` : `<span id="modal-avatar-initials">${initials(currentUser.name)}</span>`}
+          <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.6);color:#fff;font-size:11px;padding:6px 0;text-align:center;font-family:'Inter',sans-serif;font-weight:600;letter-spacing:0.05em;z-index:10;">UPLOAD</div>
+        </div>
+        <button class="btn btn-sm btn-ghost" onclick="triggerAvatarUploadFromModal()" style="margin-bottom:0.8rem;">Change Picture</button>
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--navy)">${escHtml(currentUser.name)}</div>
+        <div style="font-size:0.85rem;color:var(--muted);text-transform:uppercase;font-weight:600;letter-spacing:0.05em;margin-top:0.2rem;">${currentUser.role} ${currentUser.memberId ? `· ${currentUser.memberId}` : ''}</div>
+      </div>
+      
+      <div class="form-group">
+        <label>Full Name</label>
+        <input id="profile-name" type="text" value="${escHtml(currentUser.name)}" />
+      </div>
+      
+      <div class="form-group">
+        <label>Email Address</label>
+        <input id="profile-email" type="email" value="${escHtml(currentUser.email)}" disabled style="opacity:0.6;background:var(--parchment-dark);" />
+        <div class="form-hint">Email address cannot be changed.</div>
+      </div>
+      
+      ${currentUser.role === 'member' ? `
+      <div class="form-row">
+        <div class="form-group"><label>Phone Number</label><input id="profile-phone" type="text" value="${escHtml(currentPhone)}" /></div>
+        <div class="form-group"><label>Academic Year</label><select id="profile-year">${[1,2,3,4].map(y => `<option ${currentYear === y ? 'selected' : ''}>${y}</option>`).join('')}</select></div>
+      </div>
+      <div class="form-group">
+        <label>Course / Programme</label>
+        <input id="profile-course" type="text" value="${escHtml(currentCourse)}" />
+      </div>
+      ` : ''}
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-navy" onclick="saveProfileChanges()">Save Changes</button>
+    </div>
+  </div>`);
+}
+
+function triggerAvatarUploadFromModal() {
+  let input = document.getElementById('dynamic-avatar-input');
+  if (!input) {
+    input = document.createElement('input');
+    input.type = 'file';
+    input.id = 'dynamic-avatar-input';
+    input.accept = 'image/*';
+    input.style.display = 'none';
+    document.body.appendChild(input);
+  }
+  
+  input.onchange = function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    if (file.size > 50 * 1024 * 1024) {
+      toast('Image is too large. Please select an image under 50MB.', 'error');
+      return;
+    }
+    
+    // Create an object URL for ultra-fast, high-performance loading of large images up to 50MB
+    const objectUrl = URL.createObjectURL(file);
+    
+    // Open adjustable fit dialog
+    let adjusterOverlay = document.getElementById('avatar-adjuster-overlay');
+    if (!adjusterOverlay) {
+      adjusterOverlay = document.createElement('div');
+      adjusterOverlay.id = 'avatar-adjuster-overlay';
+      adjusterOverlay.style.cssText = `
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(15, 23, 42, 0.9);
+        backdrop-filter: blur(4px);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        font-family: 'Inter', sans-serif;
+      `;
+      document.body.appendChild(adjusterOverlay);
+    }
+    
+    adjusterOverlay.innerHTML = `
+      <div style="background: white; border-radius: 16px; width: 100%; max-width: 420px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); overflow: hidden; display: flex; flex-direction: column;">
+        <div style="padding: 1.25rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+          <h4 style="font-family:'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--navy, #0f172a); margin: 0;">Adjust Profile Photo</h4>
+          <button id="adjuster-close-btn" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b; line-height: 1;">&times;</button>
+        </div>
+        
+        <div style="padding: 1.5rem; display: flex; flex-direction: column; align-items: center; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+          <!-- Circular Crop viewport boundary -->
+          <div id="adjuster-viewport" style="position: relative; width: 280px; height: 280px; border-radius: 50%; overflow: hidden; border: 4px solid #4f46e5; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); background: #94a3b8; cursor: move; user-select: none;">
+            <img id="adjuster-image" style="position: absolute; transform-origin: top left; pointer-events: none; transition: none; max-width: none;" />
+          </div>
+          
+          <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem; text-align: center; font-weight: 5
++00;">Drag the photo to move, slider to enlarge.</p>
+          
+          <!-- Zoom controls -->
+          <div style="width: 100%; display: flex; align-items: center; gap: 0.75rem; margin-top: 1rem; padding: 0 1rem;">
+            <span style="font-size: 1rem; user-select: none; color: #64748b; font-weight: 600;">A</span>
+            <input type="range" id="adjuster-zoom" min="100" max="400" value="100" style="flex: 1; accent-color: #4f46e5; cursor: pointer; height: 6px; border-radius: 3px;" />
+            <span style="font-size: 1.4rem; user-select: none; color: #64748b; font-weight: 600;">A</span>
+          </div>
+        </div>
+        
+        <div style="padding: 1rem 1.25rem; display: flex; justify-content: flex-end; gap: 0.75rem; background: #ffffff;">
+          <button id="adjuster-cancel" style="padding: 0.55rem 1.2rem; border-radius: 8px; border: 1px solid #cbd5e1; background: transparent; cursor: pointer; font-family: inherit; font-size: .875rem; font-weight: 500; color: #475569;">Cancel</button>
+          <button id="adjuster-save" style="padding: 0.55rem 1.2rem; border-radius: 8px; border: none; background: #0f172a; color: white; cursor: pointer; font-family: inherit; font-size: .875rem; font-weight: 600;">Save Selection</button>
+        </div>
+      </div>
+    `;
+    
+    const img = document.getElementById('adjuster-image');
+    img.src = objectUrl;
+    
+    const viewport = document.getElementById('adjuster-viewport');
+    const zoomSlider = document.getElementById('adjuster-zoom');
+    
+    let scale = 1.0;
+    let fitW = 280;
+    let fitH = 280;
+    let x = 0;
+    let y = 0;
+    
+    img.onload = function() {
+      const imgW = img.naturalWidth;
+      const imgH = img.naturalHeight;
+      
+      if (imgW > imgH) {
+        fitH = 280;
+        fitW = (imgW / imgH) * 280;
+      } else {
+        fitW = 280;
+        fitH = (imgH / imgW) * 280;
+      }
+      
+      // Center coordinates initially
+      x = (280 - fitW) / 2;
+      y = (280 - fitH) / 2;
+      updateImageTransform();
+    };
+    
+    function updateImageTransform() {
+      img.style.width = fitW + 'px';
+      img.style.height = fitH + 'px';
+      img.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+    }
+    
+    function clampPosition() {
+      const currentW = fitW * scale;
+      const currentH = fitH * scale;
+      
+      if (currentW >= 280) {
+        x = Math.max(280 - currentW, Math.min(0, x));
+      } else {
+        x = (280 - currentW) / 2;
+      }
+      
+      if (currentH >= 280) {
+        y = Math.max(280 - currentH, Math.min(0, y));
+      } else {
+        y = (280 - currentH) / 2;
+      }
+    }
+    
+    zoomSlider.oninput = function() {
+      const ratio = parseInt(zoomSlider.value) / 100;
+      const oldScale = scale;
+      scale = ratio;
+      
+      // Center zooming around center of 280px viewport
+      const viewportCenter = 140;
+      x = viewportCenter - (viewportCenter - x) * (scale / oldScale);
+      y = viewportCenter - (viewportCenter - y) * (scale / oldScale);
+      
+      clampPosition();
+      updateImageTransform();
+    };
+    
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    
+    viewport.onmousedown = function(e) {
+      isDragging = true;
+      startX = e.clientX - x;
+      startY = e.clientY - y;
+      viewport.style.cursor = 'grabbing';
+      e.preventDefault();
+    };
+    
+    window.onmousemove = function(e) {
+      if (!isDragging) return;
+      x = e.clientX - startX;
+      y = e.clientY - startY;
+      clampPosition();
+      updateImageTransform();
+    };
+    
+    window.onmouseup = function() {
+      if (isDragging) {
+        isDragging = false;
+        viewport.style.cursor = 'move';
+      }
+    };
+    
+    viewport.ontouchstart = function(e) {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        startX = e.touches[0].clientX - x;
+        startY = e.touches[0].clientY - y;
+      }
+    };
+    
+    viewport.ontouchmove = function(e) {
+      if (!isDragging || e.touches.length !== 1) return;
+      x = e.touches[0].clientX - startX;
+      y = e.touches[0].clientY - startY;
+      clampPosition();
+      updateImageTransform();
+      e.preventDefault();
+    };
+    
+    viewport.ontouchend = function() {
+      isDragging = false;
+    };
+    
+    function closeAdjuster() {
+      URL.revokeObjectURL(objectUrl);
+      adjusterOverlay.remove();
+    }
+    
+    document.getElementById('adjuster-close-btn').onclick = closeAdjuster;
+    document.getElementById('adjuster-cancel').onclick = closeAdjuster;
+    
+    document.getElementById('adjuster-save').onclick = function() {
+      // Save crop on a 400x400 high resolution canvas
+      const canvas = document.createElement('canvas');
+      canvas.width = 400;
+      canvas.height = 400;
+      const ctx = canvas.getContext('2d');
+      
+      const ratio = 400 / 280;
+      const renderX = x * ratio;
+      const renderY = y * ratio;
+      const renderW = fitW * scale * ratio;
+      const renderH = fitH * scale * ratio;
+      
+      // Draw image
+      ctx.drawImage(img, renderX, renderY, renderW, renderH);
+      
+      // Compress with JPEG to ensure tiny local storage usage
+      const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+      
+      const preview = document.getElementById('modal-avatar-preview');
+      if (preview) {
+        const existingImg = document.getElementById('modal-avatar-img');
+        if (existingImg) {
+          existingImg.src = compressedDataUrl;
+        } else {
+          const initialsEl = document.getElementById('modal-avatar-initials');
+          if (initialsEl) initialsEl.style.display = 'none';
+          
+          const avatarImg = document.createElement('img');
+          avatarImg.id = 'modal-avatar-img';
+          avatarImg.src = compressedDataUrl;
+          avatarImg.style.width = '100%';
+          avatarImg.style.height = '100%';
+          avatarImg.style.objectFit = 'cover';
+          avatarImg.style.position = 'absolute';
+          avatarImg.style.top = '0';
+          avatarImg.style.left = '0';
+          avatarImg.referrerPolicy = 'no-referrer';
+          preview.insertBefore(avatarImg, preview.firstChild);
+        }
+      }
+      
+      uploadedModalAvatar = compressedDataUrl;
+      closeAdjuster();
+    };
+  };
+  
+  input.click();
+}
+
+function saveProfileChanges() {
+  const newName = document.getElementById('profile-name').value.trim();
+  if (!newName) {
+    toast('Name is required.', 'error');
+    return;
+  }
+  
+  currentUser.name = newName;
+  
+  const mainUser = DB.users.find(u => u.id === currentUser.id);
+  if (mainUser) {
+    mainUser.name = newName;
+    if (uploadedModalAvatar) {
+      mainUser.avatar = uploadedModalAvatar;
+    }
+  }
+  
+  if (currentUser.role === 'member') {
+    const m = DB.members.find(x => x.memberId === currentUser.memberId);
+    if (m) {
+      m.name = newName;
+      m.phone = document.getElementById('profile-phone').value.trim();
+      m.course = document.getElementById('profile-course').value.trim();
+      m.year = parseInt(document.getElementById('profile-year').value) || 1;
+      if (uploadedModalAvatar) {
+        m.avatar = uploadedModalAvatar;
+      }
+    }
+  } else {
+    if (uploadedModalAvatar) {
+      currentUser.avatar = uploadedModalAvatar;
+    }
+  }
+  
+  document.getElementById('nav-username').textContent = currentUser.name;
+  
+  closeModal();
+  saveLocalState();
+  updateNavAvatar();
+  toast('Profile updated successfully!');
+  
+  if (currentPage === 'myportal') {
+    renderMyPortal();
+  } else if (currentPage === 'dashboard') {
+    renderDashboard();
+  } else if (currentPage === 'members') {
+    renderMembers();
+  }
+}
+
+// ════ KEYBOARD SHORTCUT ════
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>
